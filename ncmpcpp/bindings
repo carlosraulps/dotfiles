@@ -6,15 +6,27 @@ def_key "j"
 def_key "k"
   scroll_up
 
+def_key "y"
+  toggle_single
+
 def_key ","
   previous
 
 def_key "."
   next
 
+def_key ";"
+  show_lyrics
+
+def_key "'"
+  show_visualizer
+
 # Reproducción
 def_key "space"
   add_item_to_playlist
+
+def_key "space"
+  pause
 
 def_key "enter"
   enter_directory
