@@ -1,0 +1,27 @@
+
+# Configuración de Zathura mu-pdf
+
+# Habilitar el recoloreado de texto
+set recolor false
+set recolor-darkcolor "#000000"
+set recolor-lightcolor  "#FFFFFF"
+
+
+# Configurar la selección para el portapapeles
+set selection-clipboard clipboard
+
+# Personalizar el color del resaltado
+set highlight-color "#BDBDBD"
+
+# Mostrar el número de página en el título de la ventana
+set window-title-page true
+
+# Definir el paso de zoom (en porcentaje)
+set zoom-step 10
+
+# Definir el nivel máximo de zoom permitido (en porcentaje)
+set zoom-max 1000
+
+# Definir el nivel mínimo de zoom permitido (en porcentaje)
+set zoom-min 10
+

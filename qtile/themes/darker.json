@@ -1,0 +1,52 @@
+
+{
+    "dark": [
+        "#0d0d1a",
+        "#0d0d1a"
+    ],
+    "grey": [
+        "#1a1a2e",
+        "#1a1a2e"
+    ],
+    "light": [
+        "#e5f6ff",
+        "#e5f6ff"
+    ],
+    "text": [
+        "#cfd8e6",
+        "#cfd8e6"
+    ],
+    "focus": [
+        "#4c78c8",
+        "#4c78c8"
+    ],
+    "active": [
+        "#e5f6ff",
+        "#e5f6ff"
+    ],
+    "inactive": [
+        "#5a5a73",
+        "#5a5a73"
+    ],
+    "urgent": [
+        "#ff5555",
+        "#ff5555"
+    ],
+    "color1": [
+        "#4c78c8",
+        "#4c78c8"
+    ],
+    "color2": [
+        "#5c99d6",
+        "#5c99d6"
+    ],
+    "color3": [
+        "#0088cc",
+        "#0088cc"
+    ],
+    "color4": [
+        "#00aaff",
+        "#00aaff"
+    ]
+}
+
