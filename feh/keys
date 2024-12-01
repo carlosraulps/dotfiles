@@ -1,0 +1,25 @@
+
+# Configuración de teclas estilo nvim para feh
+
+# Navegación por las imágenes
+next_img j Right space        # Siguiente imagen
+prev_img k Left BackSpace     # Imagen anterior
+
+# Movimiento dentro de la imagen
+scroll_up    J C-Up           # Desplazar arriba
+scroll_down  K C-Down         # Desplazar abajo
+scroll_left  H C-Left         # Desplazar izquierda
+scroll_right L C-Right        # Desplazar derecha
+
+# Zoom
+zoom_in      l Plus           # Ampliar zoom
+zoom_out     h Minus          # Reducir zoom
+zoom_default d                # Restablecer zoom
+zoom_fit     s                # Ajustar imagen al tamaño de la ventana
+
+# Mostrar u ocultar nombres de archivo
+toggle_filenames f
+
+# Eliminar archivos
+remove       d Delete         # Mover a la papelera
+delete       C-d C-Delete     # Eliminar permanentemente
