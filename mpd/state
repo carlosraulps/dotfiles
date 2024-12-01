@@ -1,0 +1,43 @@
+sw_volume: 36
+audio_device_state:1:My ALSA Device
+audio_device_state:1:Visualizer
+state: play
+current: 26
+time: 120.366000
+random: 0
+repeat: 1
+single: 0
+consume: 0
+crossfade: 0
+mixrampdb: 0.000000
+mixrampdelay: -1.000000
+playlist_begin
+0:Khalid - Location.mp3
+1:The Race - Remix.mp3
+2:Often.mp3
+3:Acquainted.mp3
+4:Can't Feel My Face.mp3
+5:Circles.mp3
+6:Nonstop.mp3
+7:Awkward.mp3
+8:Mo Bamba.mp3
+9:Wake Up in the Sky.mp3
+10:The Race.mp3
+11:After Hours.mp3
+12:Blinding Lights.mp3
+13:SICKO MODE.mp3
+14:All The Stars (with SZA).mp3
+15:Knife Talk (with 21 Savage ft. Project Pat).mp3
+16:Toosie Slide.mp3
+17:New Rules.mp3
+18:CIRCUS MAXIMUS (feat. The Weeknd & Swae Lee).mp3
+19:FE!N (feat. Playboi Carti).mp3
+20:The Next Episode.mp3
+21:Summertime Sadness.mp3
+22:LOVE. FEAT. ZACARI..mp3
+23:Is There Someone Else?.mp3
+24:I'm the One (feat. Justin Bieber, Quavo, Chance the Rapper & Lil Wayne).mp3
+25:Creepin' (with The Weeknd & 21 Savage).mp3
+26:HIGHEST IN THE ROOM.mp3
+27:EARFQUAKE.mp3
+playlist_end

@@ -1,0 +1,63 @@
+
+# Movimiento en la biblioteca y listas (similar a nvim)
+def_key "j"
+  scroll_down
+
+def_key "k"
+  scroll_up
+
+def_key "h"
+  previous
+
+def_key "l"
+  next
+
+# Reproducción
+def_key "space"
+  add_item_to_playlist
+
+def_key "enter"
+  play_item
+
+def_key "d"
+  delete_playlist_items
+
+# Volumen
+def_key "-"
+  volume_down
+
+def_key "+"
+  volume_up
+
+# Navegación entre pestañas (buffers en nvim)
+def_key "H"
+  previous_screen
+
+def_key "L"
+  next_screen
+
+# Manejo de la cola de reproducción
+#def_key "dd"
+# delete_playlist_items
+
+def_key "p"
+  add_selected_items
+
+# Búsqueda (inspirado en `/` y `n` en nvim)
+def_key "/"
+  find
+
+def_key "/"
+  find_item_forward
+
+
+def_key "n"
+  next_found_item
+
+def_key "N"
+  previous_found_item
+
+# Visualizador
+#def_key "v"
+# toggle_visualizer
+
