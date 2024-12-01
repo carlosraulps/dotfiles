@@ -1,25 +1,45 @@
+# feh key configuration.
+# Comments start with a # sign, do not use them mid-line.
+# Each line must be blank, a comment, or a key definition.
+#
+# key definition: <action name> <key1> [<key2> [<key3>]]
+#
+# Each <key> is an X11 keysym (as output by xev) with optional modifier.
+# For instance, C-x would be Ctrl+X, or 4-space Mod4+Space
 
-# Configuración de teclas estilo nvim para feh
+# Examples for vim-like menu bindings on a qwerty keyboard:
+menu_parent H Left
+menu_child  L Right
+menu_down   J Down
+menu_up     K Up
+menu_select space Return
 
-# Navegación por las imágenes
-next_img j Right space        # Siguiente imagen
-prev_img k Left BackSpace     # Imagen anterior
+# Same for image navigation ...
+next_img L
+prev_img H
 
-# Movimiento dentro de la imagen
-scroll_up    J C-Up           # Desplazar arriba
-scroll_down  K C-Down         # Desplazar abajo
-scroll_left  H C-Left         # Desplazar izquierda
-scroll_right L C-Right        # Desplazar derecha
+# and image movement
+scroll_up    k
+scroll_down  j
+scroll_left  l
+scroll_right h
 
-# Zoom
-zoom_in      l Plus           # Ampliar zoom
-zoom_out     h Minus          # Reducir zoom
-zoom_default d                # Restablecer zoom
-zoom_fit     s                # Ajustar imagen al tamaño de la ventana
+# File deletion
+remove     D   Delete
+delete   C-d C-Delete
 
-# Mostrar u ocultar nombres de archivo
+# remove now conflicts with toggle_filenames, so change that
 toggle_filenames f
 
-# Eliminar archivos
-remove       d Delete         # Mover a la papelera
-delete       C-d C-Delete     # Eliminar permanentemente
+# zooming
+zoom_in  s
+zoom_out a
+zoom_default d
+zoom_fit f
+
+# I only hit these accidentally
+save_image
+save_filelist
+
+# This leaves some conflicts with existing default bindings, but you should
+# get the idea.  And I'm not gonna fix the conflicts, I don't use qwerty ;-)
