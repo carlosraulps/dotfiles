@@ -11,7 +11,8 @@ theme="$type/$style"
 
 # Theme Elements
 prompt='Quick Links'
-mesg="Using '$BROWSER' as web browser"
+#mesg="Using '$BROWSER' as web browser"
+mesg="Using Brave as web browser"
 
 if [[ ( "$theme" == *'type-1'* ) || ( "$theme" == *'type-3'* ) || ( "$theme" == *'type-5'* ) ]]; then
 	list_col='1'
@@ -32,17 +33,17 @@ layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
 	option_1=" Google"
 	option_2=" Gmail"
-	option_3=" Youtube"
-	option_4=" Github"
-	option_5=" Reddit"
-	option_6=" Twitter"
+	option_3=" ChatGPT"
+	option_4="󱤅 Overleaf"
+	option_5="󰛄 Claude"
+	option_6=" Reddit"
 else
 	option_1=""
 	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
-	option_6=""
+	option_3=""
+	option_4="󱤅"
+	option_5="󰛄"
+	option_6=""
 fi
 
 # Rofi CMD
@@ -69,13 +70,13 @@ run_cmd() {
 	elif [[ "$1" == '--opt2' ]]; then
 		xdg-open 'https://mail.google.com/'
 	elif [[ "$1" == '--opt3' ]]; then
-		xdg-open 'https://www.youtube.com/'
+		xdg-open 'https://chatgpt.com/'
 	elif [[ "$1" == '--opt4' ]]; then
-		xdg-open 'https://www.github.com/'
+		xdg-open 'https://www.overleaf.com/'
 	elif [[ "$1" == '--opt5' ]]; then
-		xdg-open 'https://www.reddit.com/'
+		xdg-open 'https://www.claude.ai/'
 	elif [[ "$1" == '--opt6' ]]; then
-		xdg-open 'https://www.twitter.com/'
+		xdg-open 'https://www.reddit.com/'
 	fi
 }
 

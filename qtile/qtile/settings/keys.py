@@ -52,6 +52,8 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     
     ([mod, "shift"], "p", lazy.spawn(".config/rofi/powermenu/type-1/powermenu.sh")),
 
+    ([mod], "e", lazy.spawn(".config/rofi/applets/bin/quicklinks.sh")),
+
     # Window Nav
     ([mod, "shift"], "m", lazy.spawn("rofi -show")),
 
