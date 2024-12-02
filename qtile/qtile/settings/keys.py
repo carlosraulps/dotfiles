@@ -47,7 +47,10 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # ------------ App Configs ------------
 
     # Menu
-    ([mod], "m", lazy.spawn("rofi -show drun")),
+    ([mod], "m", lazy.spawn("rofi -show drun -theme .config/rofi/launchers/type-2/style-15.rasi")),
+
+    
+    ([mod, "shift"], "p", lazy.spawn(".config/rofi/powermenu/type-1/powermenu.sh")),
 
     # Window Nav
     ([mod, "shift"], "m", lazy.spawn("rofi -show")),
@@ -56,7 +59,7 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod], "b", lazy.spawn("brave")),
 
     # File Explorer
-    #([mod], "e", lazy.spawn("ranger /home/crls/.")),
+    ([mod], "r", lazy.spawn("alacritty -e ranger")),
 
     # Terminal
     ([mod], "Return", lazy.spawn("alacritty")),
