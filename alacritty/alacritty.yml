@@ -1,0 +1,47 @@
+---
+# Alacritty configuration file
+
+window:
+  opacity: 0.9
+  padding:
+    x: 2
+
+colors:
+  # Default colors
+  primary:
+    background: "#1e1f29"
+    foreground: "#abb2bf"
+  normal:
+    black: "#282c34"
+    red: "#e06c75"
+    green: "#98c379"
+    yellow: "#e5c07b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#56b6c2"
+    white: "#abb2bf"
+  # Bright colors
+  bright:
+    black: "#282c34"
+    red: "#e06c75"
+    green: "#98c379"
+    yellow: "#e5c07b"
+    blue: "#61afef"
+    magenta: "#c678dd"
+    cyan: "#56b6c2"
+    white: "#abb2bf"
+
+font:
+  bold:
+    family: "UbuntuMono Nerd Font"
+  italic:
+    family: "UbuntuMono Nerd Font"
+  normal:
+    family: "UbuntuMono Nerd Font"
+    style: Regular
+  size: 9
+
+key_bindings:
+  - { key: Y, mods: Alt, action: Copy }
+  - { key: P, mods: Alt, action: Paste }
+

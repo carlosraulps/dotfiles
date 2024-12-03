@@ -1,0 +1,56 @@
+[[keyboard.bindings]]
+action = "Copy"
+key = "Y"
+mods = "Alt"
+
+[[keyboard.bindings]]
+action = "Paste"
+key = "P"
+mods = "Alt"
+
+[colors.bright]
+black = "#282c34"
+blue = "#61afef"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+red = "#e06c75"
+white = "#abb2bf"
+#yellow = "#e5c07b"
+yellow = "#00ffff" 
+
+[colors.normal]
+black = "#282c34"
+blue = "#61afef"
+cyan = "#56b6c2"
+green = "#98c379"
+magenta = "#c678dd"
+red = "#e06c75"
+white = "#abb2bf"
+#yellow = "#e5c07b"
+yellow = "#61afef" 
+
+[colors.primary]
+background = "#1e1f29"
+foreground = "#abb2bf"
+
+[font]
+size = 9
+
+[font.bold]
+family = "UbuntuMono Nerd Font"
+
+[font.italic]
+family = "UbuntuMono Nerd Font"
+
+[font.normal]
+family = "UbuntuMono Nerd Font"
+style = "Regular"
+
+[window]
+opacity = 0.9
+
+[window.padding]
+x = 2
+
+[keyboard]
