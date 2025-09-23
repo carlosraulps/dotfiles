@@ -1,0 +1,11 @@
+see the README.UPDATES files for details:
+updated:
+He_GW                                   improved accuracy
+C_GW_new N_GW_new O_GW_new F_GW_new     more balanced overall
+C_h N_h O_h F_h                         improved accuracy for HF calculation (errors below 0.5 kcal)
+N_s_GW                                  improved accuracy
+Rn Rn_d_GW Rn_sv_GW                     mass updated to 220
+Cu_sv_GW Hf_sv_GW                       improved accuracy/ ghoststate issues
+
+new:
+B_GW_new C_s_GW

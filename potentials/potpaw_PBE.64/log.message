@@ -1,0 +1,13 @@
+see the README.UPDATES files for details:
+updated:
+Li_GW He_GW                             improved accuracy
+C_GW_new N_GW_new O_GW_new F_GW_new     more balanced overall
+C_h N_h O_h F_h                         improved accuracy for HF calculation (errors below 0.5 kcal)
+N_s_GW                                  improved accuracy
+Rn Rn_d_GW Rn_sv_GW                     mass updated to 220
+Ba_sv_GW Cs_sv Cs_sv_GW Cu_sv_GW Hf_sv_GW  improved accuracy/ ghoststate issues
+Dy Er Eu Gd Ho Nd Pm Pr Sm Tb Tm Yb     lathanides updated
+
+new:
+H_GW_new B_GW_new B_h_GW C_s_GW
+Dy_h Er_h Eu_h Gd_h Ho_h Nd_h Pm_h Pr_h Sm_h Tb_h Tm_h Yb_h

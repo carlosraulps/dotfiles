@@ -1,0 +1,26 @@
+# potential yields much improved RPA lattice constants
+# compared to Na_sv_GW
+
+   TITEL  = PAW Na_sv_GW 05Mar2016
+   LPAW   = T
+   RPACOR =    1.80
+   RWIGS  =    2.20  nn distance   
+
+   RCLOC =  1.1
+   LCOR   =   .TRUE.                  
+  QCUT = 0 
+   RDEPT  = 1.8
+   NE = 400 
+   EMIN   =-5.0
+   EMAX   = 8.0
+   RDEPT  = 2.0
+                                      
+   Description                        
+ l     E      TYP  RCUT    TYP  RCUT  
+ 0     0.0     7    2.20
+ 0     0.0     7    2.20
+ 1     0.0     23   1.70
+ 1    -2.3     23   1.70
+ 1     3.0     23   1.70
+ 2     1.5     23   2.20
+ 2     4.0     23   2.20

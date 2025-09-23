@@ -1,0 +1,25 @@
+# updated PSCTR file with e.g. improved HXX energy
+# generally these X_GW_new yield excellent PBE and HXX for HEAT test set
+   TITEL  = PAW_PBE N_GW_new 16Dec2020
+   LPAW   = T
+   RWIGS  =    1.60  nn distance   
+ 
+   ICORE = 3
+   LCOR   =   .TRUE.                  
+  QCUT = 0 
+   NE     =   400                     
+   EMAX   =   40
+   RPACOR =   0.8
+   RDEPT   =   1.2
+                                      
+   Description                        
+ l     E      TYP  RCUT    TYP  RCUT  
+ 0     0.0     23   1.1
+ 0    -0.6     23   1.1
+ 0    19.0     23   1.1 
+ 1     0.0     23   1.5
+ 1     5.5     23   1.5
+ 1    17.0     23   1.5
+ 2     2.0     23   1.5
+ 2    14.0     23   1.6
+ 3     4.0     23   1.4

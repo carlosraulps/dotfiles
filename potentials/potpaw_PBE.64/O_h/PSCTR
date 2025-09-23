@@ -1,0 +1,22 @@
+# this PSCTR is more accurate for HF type calculations than the old O_h POTCAR
+# it corresponds to O_h_new*  in Table 4.1 of the Master thesis of Hummer (page 43)
+# it also yields reasonably fast PW convergence
+
+   TITEL  = PAW_PBE O_h 19Jan2021
+   LPAW   = T
+   RWIGS  =    1.2  nn distance   
+                                      
+   ICORE  =   2                    
+   EMAX   =   20
+   NE     =   400                     
+   LCOR   =   .TRUE.                  
+   QCUT = 0 
+   RPACOR =   0.8
+
+   Description                        
+ l     E      TYP  RCUT    TYP  RCUT  
+ 0     0.0     23   1.0
+ 0     3.0     23   1.0
+ 1     0.0     23   1.1
+ 1    -1.5     23   1.1
+ 2     0.0      7   1.1

@@ -1,0 +1,22 @@
+   TITEL  = PAW_PBE Cs_sv 25Jan2019
+#i smaller partial core radius (2.2->1.8) and smaller p core radius
+   LPAW   = T
+   NWRITE = 3
+   RPACOR =    1.80
+   RWIGS  =    2.5   nn distance   
+                                      
+   RCLOC  =    2.20                  
+   EMIN   =   -2.0
+   EMAX   =    4.0
+   NE     =   500                     
+   LCOR   =   .TRUE.                  
+  QCUT = 0 
+   EMAX   = 1.0
+                                      
+   Description                        
+ l     E      TYP  RCUT    TYP  RCUT  
+ 0     0.0     23   1.9
+ 0     0.0     23   1.9
+ 1     0.0     23   2.3
+ 1    -0.2     23   2.3
+ 2     0.0     23   2.5

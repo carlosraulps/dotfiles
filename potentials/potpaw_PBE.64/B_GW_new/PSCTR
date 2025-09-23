@@ -1,0 +1,26 @@
+#
+# d projectors are difficult to generate
+# if they are too low, the non-local strength becomes huge
+# with two d projectors the d becomes to atractive at low energies
+#
+   TITEL  = PAW_PBE B_GW_new 26Mar2016
+   LPAW   = T
+   RWIGS  =    1.71  nn distance   
+
+   ICORE = 3
+   LCOR   =   .TRUE.                  
+  QCUT = 0 
+   NE     =   500                     
+   EMAX   =   22
+   RPACOR =   0.8
+   RDEPT   =   1.5
+                                      
+   Description                        
+ l     E      TYP  RCUT    TYP  RCUT  
+ 0     0.0     23   1.4
+ 0    -1.0     23   1.4
+ 0    12.0     23   1.4
+ 1     0.0     23   1.7
+ 1     8.0     23   1.7
+ 2     8.0     23   1.7
+ 3     4.0     23   1.5
