@@ -1,4 +1,5 @@
 # Qtile workspaces configuration
+import re
 from types import FunctionType  # type: ignore
 from libqtile.config import Key, Group, Match
 from libqtile.lazy import lazy
@@ -28,16 +29,18 @@ groups = [
         ]
     ),
 
-    # Workspace 3 (Win+3: Antigravity IDE strictly in MAX - not monadtall, not nothing!)
+    # Workspace 3 (Win+3: Antigravity IDE & Antigravity App strictly in MAX - not monadtall, not nothing!)
     Group(
         "  ",
         layout="max",
         layouts=[layout.Max()],
         matches=[
+            Match(wm_class=re.compile(r"antigravity", re.I)),
+            Match(wm_class="antigravity ide"),
+            Match(wm_class="Antigravity IDE"),
             Match(wm_class="antigravity-ide"),
             Match(wm_class="antigravity"),
             Match(wm_class="Antigravity"),
-            Match(wm_class="Antigravity-ide"),
         ]
     ),
 

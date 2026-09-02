@@ -16,13 +16,9 @@ from os import path
 import subprocess
 
 
-@hook.subscribe.startup_once
-def autostart():
-    subprocess.Popen([path.join(qtile_path, 'autostart.sh')])
-
 @hook.subscribe.startup
-def on_restart():
-    # Ensures layout and apps are verified and launched upon any live restart
+def autostart():
+    # Runs once on boot and once on any live restart
     subprocess.Popen([path.join(qtile_path, 'autostart.sh')])
 
 main = None

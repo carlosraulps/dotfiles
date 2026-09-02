@@ -7,18 +7,20 @@
 * {
     font:               "UbuntuMono Nerd Font 12";
 
-    /* macOS Dark Palette */
-    bg-win:             #16171d;
-    bg-surface:         #21232d;
-    bg-alt:             #2a2c39;
-    bg-highlight:       #0860f2;
-    bg-highlight-glow:  #3b82f6;
+    /* Refined macOS / OneDark Palette */
+    bg-win:             #1e222a;
+    bg-surface:         #242b38;
+    bg-alt:             #2c3240;
+    bg-highlight:       #323b4c;
+    bg-highlight-glow:  #61afef;
 
-    fg-main:            #f3f4f6;
-    fg-muted:           #9ca3af;
-    fg-dim:             #6b7280;
-    accent:             #3b82f6;
-    urgent:             #ef4444;
+    fg-main:            #e2e6ed;
+    fg-muted:           #98a2b3;
+    fg-dim:             #5c6370;
+    accent:             #61afef;
+    accent-soft:        #528bff;
+    border-subtle:      #384050;
+    urgent:             #e06c75;
 
     background-color:   transparent;
     text-color:         @fg-main;
@@ -38,9 +40,9 @@ window {
     enabled:            true;
     margin:             0px;
     padding:            0px;
-    border:             2px solid;
+    border:             1px solid;
     border-radius:      0px;
-    border-color:       @accent;
+    border-color:       @border-subtle;
     background-color:   @bg-win;
     cursor:             "default";
 }
@@ -255,7 +257,8 @@ element alternate.urgent {
 element selected.normal, element selected.active {
     background-color:   @bg-highlight;
     text-color:         #ffffff;
-    border-color:       @bg-highlight-glow;
+    border:             0px 0px 0px 3px solid;
+    border-color:       @accent;
 }
 
 element selected.urgent {

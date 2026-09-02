@@ -1,7 +1,15 @@
 #!/bin/sh
 # ==============================================================================
-#  Qtile Autostart & Workspace Layout Automation
+#  Qtile Autostart & Workspace Layout Automation (Singleton Lock Protected)
 # ==============================================================================
+
+# Prevent concurrent duplicate execution of autostart.sh
+LOCKFILE="/tmp/qtile_autostart.lock"
+if [ -e "$LOCKFILE" ] && kill -0 "$(cat "$LOCKFILE" 2>/dev/null)" 2>/dev/null; then
+    exit 0
+fi
+echo $$ > "$LOCKFILE"
+trap 'rm -f "$LOCKFILE"' EXIT INT TERM
 
 # Sync Google Drive (if not already mounted via systemd)
 if ! mountpoint -q ~/mnt/google-drive 2>/dev/null; then
@@ -38,15 +46,22 @@ pgrep -x picom >/dev/null || picom -b &
 #  Workstation App Layout Automation
 # ==============================================================================
 
-# Workspace 3 (Win+3): Launch Antigravity IDE strictly in Max layout
+# Workspace 3 (Win+3): Launch Antigravity IDE AND Antigravity App (Both strictly in Max layout)
 if ! pgrep -f "antigravity-ide" >/dev/null 2>&1; then
     antigravity-ide &
+fi
+
+if ! pgrep -f "/opt/antigravity/antigravity" >/dev/null 2>&1; then
+    /usr/local/bin/antigravity &
 fi
 
 # Workspace 2 (Win+2): Launch Brave on Left + 2 Terminals on Right in MonadTall
 if ! pgrep -x "brave" >/dev/null 2>&1; then
     brave &
-    sleep 0.6
+fi
+
+DEVTERMS=$(pgrep -fc "qtile-devterm" 2>/dev/null || echo 0)
+if [ "$DEVTERMS" -lt 2 ]; then
     alacritty --class qtile-devterm,qtile-devterm -e /home/cr/.local/bin/tmux-smart-attach &
     sleep 0.3
     alacritty --class qtile-devterm,qtile-devterm -e /home/cr/.local/bin/tmux-smart-attach &
