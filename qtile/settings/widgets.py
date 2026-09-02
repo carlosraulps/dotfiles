@@ -154,6 +154,27 @@ primary_widgets = [
     ),
     bar_divider(),
 
+    # Pomodoro Productivity Timer (Click to Start/Pause, Right-click to Reset)
+    icon(bg="dark", fg="color3", fontsize=15, text='󰄉 '),
+    widget.Pomodoro(
+        background=colors['dark'],
+        color_inactive=colors['grey'],
+        color_active=colors['color1'],
+        color_break=colors['color2'],
+        length_pomodori=25,
+        length_short_break=5,
+        length_long_break=15,
+        num_pomodori=4,
+        prefix_inactive='25m',
+        prefix_active='󱎫 ',
+        prefix_break='󰏤 Break ',
+        prefix_long_break='󰏦 Long ',
+        prefix_paused='󰏥 Pause ',
+        notification_on=True,
+        padding=3,
+    ),
+    bar_divider(),
+
     # Spotlight Search Icon (Clickable -> Rofi Launcher)
     icon(
         bg="dark",
