@@ -47,7 +47,7 @@ fi
 if ! pgrep -x "brave" >/dev/null 2>&1; then
     brave &
     sleep 0.6
-    alacritty --class qtile-devterm,qtile-devterm &
+    alacritty --class qtile-devterm,qtile-devterm -e /home/cr/.local/bin/tmux-smart-attach &
     sleep 0.3
-    alacritty --class qtile-devterm,qtile-devterm &
+    alacritty --class qtile-devterm,qtile-devterm -e /home/cr/.local/bin/tmux-smart-attach &
 fi
