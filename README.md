@@ -29,6 +29,7 @@ An aesthetic, keyboard-driven, high-performance desktop environment built on **A
 | `Win + C` | **Spotlight Scientific Calculator** (Physical constants + math) |
 | `Win + F` | **Spotlight File Finder** (Instant recursive file search) |
 | `Alt + Tab` / `Win + Shift + M` | **Window Switcher** (Fuzzy search open windows) |
+| `Win + P` | **Pomodoro Productivity Menu** (Popup presets: 45m study, 15m break, custom) |
 | `Win + Shift + P` | **Power Menu** (Lock, Suspend, Logout, Reboot, Shutdown) |
 | `Win + Shift + W` | **Wi-Fi Network Menu** |
 | `Win + E` | **Quicklinks Applet** |

@@ -1,7 +1,13 @@
 import os
+import sys
 from libqtile import widget
 from libqtile.lazy import lazy
 from .theme import colors
+
+SCRIPTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scripts'))
+if SCRIPTS_DIR not in sys.path:
+    sys.path.insert(0, SCRIPTS_DIR)
+import pomodoro
 
 # Active network interface detection (Ethernet priority)
 def get_active_net_interface():
@@ -154,24 +160,29 @@ primary_widgets = [
     ),
     bar_divider(),
 
-    # Pomodoro Productivity Timer (Click to Start/Pause, Right-click to Reset)
-    icon(bg="dark", fg="color3", fontsize=15, text='󰄉 '),
-    widget.Pomodoro(
+    # Pomodoro Productivity Suite (Left Click: Rofi Menu, Middle Click: Pause/Play, Right Click: Reset)
+    icon(
+        bg="dark",
+        fg="color3",
+        fontsize=15,
+        text='󰄉 ',
+        mouse_callbacks={
+            'Button1': lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py menu"),
+            'Button2': lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py toggle"),
+            'Button3': lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py reset"),
+        }
+    ),
+    widget.GenPollText(
         background=colors['dark'],
-        color_inactive=colors['grey'],
-        color_active=colors['color1'],
-        color_break=colors['color2'],
-        length_pomodori=25,
-        length_short_break=5,
-        length_long_break=15,
-        num_pomodori=4,
-        prefix_inactive='25m',
-        prefix_active='󱎫 ',
-        prefix_break='󰏤 Break ',
-        prefix_long_break='󰏦 Long ',
-        prefix_paused='󰏥 Pause ',
-        notification_on=True,
+        update_interval=1,
+        func=pomodoro.get_bar_text,
+        markup=True,
         padding=3,
+        mouse_callbacks={
+            'Button1': lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py menu"),
+            'Button2': lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py toggle"),
+            'Button3': lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py reset"),
+        }
     ),
     bar_divider(),
 

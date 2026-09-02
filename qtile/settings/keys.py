@@ -61,6 +61,9 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Power Menu
     ([mod, "shift"], "p", lazy.spawn("bash -c '~/.config/rofi/powermenu/type-1/powermenu.sh'")),
 
+    # Pomodoro Productivity Menu Popup (Win+P)
+    ([mod], "p", lazy.spawn("/home/cr/temporary/dotfiles/qtile/scripts/pomodoro.py menu")),
+
     # Wi-Fi Menu Applet
     ([mod, "shift"], "w", lazy.spawn("bash -c '~/.config/rofi/applets/bin/wifi.sh'")),
 
