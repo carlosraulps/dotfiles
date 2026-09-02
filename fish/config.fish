@@ -3,9 +3,10 @@ if status is-interactive
     fish_vi_key_bindings
     abbr -a pac sudo pacman -S
 
-    # Automatically start or attach to protected base tmux session
+    # Automatically start or connect to protected base tmux session
+    # Using 'new-session -t base' prevents terminal mirroring when opening multiple windows
     if not set -q TMUX
-        tmux attach-session -t base 2>/dev/null; or tmux new-session -s base
+        tmux new-session -t base 2>/dev/null; or tmux new-session -s base
     end
 end
 
