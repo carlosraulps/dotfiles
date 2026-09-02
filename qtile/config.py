@@ -20,6 +20,11 @@ import subprocess
 def autostart():
     subprocess.Popen([path.join(qtile_path, 'autostart.sh')])
 
+@hook.subscribe.startup
+def on_restart():
+    # Ensures layout and apps are verified and launched upon any live restart
+    subprocess.Popen([path.join(qtile_path, 'autostart.sh')])
+
 main = None
 dgroups_key_binder = None
 dgroups_app_rules: list = []
