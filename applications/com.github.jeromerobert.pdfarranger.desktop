@@ -1,0 +1,13 @@
+[Desktop Entry]
+Name=PDF Arranger (Dark Mode)
+GenericName=PDF Arranger
+Comment=Merge, split, rotate and crop PDF documents
+Exec=env GTK_THEME=Adwaita:dark pdfarranger %U
+Terminal=false
+Type=Application
+Icon=com.github.jeromerobert.pdfarranger
+Categories=Office;GTK;
+MimeType=application/pdf;application/postscript;application/x-ext-pdf;
+Keywords=pdfarranger;pdfshuffler;PDF Shuffler;pdf;
+NoDisplay=false
+StartupNotify=false

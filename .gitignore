@@ -1,4 +1,14 @@
 .DS_Store
 *.swp
 .cache/
+__pycache__/
+*.pyc
+*.pyo
 
+# External cloned repositories
+gridgets/
+mac-arch/
+
+# Runtime and cache files
+*.log
+*.pid

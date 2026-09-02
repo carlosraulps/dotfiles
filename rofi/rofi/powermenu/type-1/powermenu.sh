@@ -18,13 +18,13 @@ uptime="`uptime -p | sed -e 's/up //g'`"
 host=`hostname`
 
 # Options
-shutdown=' Shutdown'
-reboot=' Reboot'
-lock=' Lock'
-suspend=' Suspend'
-logout=' Logout'
-yes=' Yes'
-no=' No'
+shutdown=' Shutdown'
+reboot=' Reboot'
+lock=' Lock'
+suspend=' Suspend'
+logout=' Logout'
+yes=' Yes'
+no=' No'
 
 # Rofi CMD
 rofi_cmd() {
@@ -36,9 +36,10 @@ rofi_cmd() {
 
 # Confirmation CMD
 confirm_cmd() {
-	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 250px;}' \
-		-theme-str 'mainbox {children: [ "message", "listview" ];}' \
+	rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 260px; border: 2px solid; border-radius: 0px; border-color: @selected;}' \
+		-theme-str 'mainbox {children: [ "message", "listview" ]; border-radius: 0px;}' \
 		-theme-str 'listview {columns: 2; lines: 1;}' \
+		-theme-str 'element {border-radius: 0px;}' \
 		-theme-str 'element-text {horizontal-align: 0.5;}' \
 		-theme-str 'textbox {horizontal-align: 0.5;}' \
 		-dmenu \
@@ -66,18 +67,20 @@ run_cmd() {
 		elif [[ $1 == '--reboot' ]]; then
 			systemctl reboot
 		elif [[ $1 == '--suspend' ]]; then
-			mpc -q pause
-			amixer set Master mute
+			mpc -q pause 2>/dev/null
+			amixer set Master mute 2>/dev/null
 			systemctl suspend
 		elif [[ $1 == '--logout' ]]; then
 			if [[ "$DESKTOP_SESSION" == 'openbox' ]]; then
 				openbox --exit
 			elif [[ "$DESKTOP_SESSION" == 'bspwm' ]]; then
 				bspc quit
-			elif [[ "$DESKTOP_SESSION" == 'i3' ]]; then
-				i3-msg exit
+			elif [[ "$DESKTOP_SESSION" == 'qtile' ]] || command -v qtile >/dev/null 2>&1; then
+				qtile cmd-obj -o cmd -f shutdown 2>/dev/null || pkill -KILL -u "$USER" qtile
 			elif [[ "$DESKTOP_SESSION" == 'plasma' ]]; then
 				qdbus org.kde.ksmserver /KSMServer logout 0 0 0
+			else
+				pkill -KILL -u "$USER"
 			fi
 		fi
 	else
@@ -95,14 +98,12 @@ case ${chosen} in
 		run_cmd --reboot
         ;;
     $lock)
-		if [[ -x '/usr/bin/betterlockscreen' ]]; then
-			betterlockscreen -l
-		elif [[ -x '/usr/bin/i3lock' ]]; then
-			i3lock
-		fi
+		bash "$HOME/.config/qtile/scripts/lock.sh"
         ;;
     $suspend)
-		run_cmd --suspend
+		mpc -q pause 2>/dev/null
+		amixer set Master mute 2>/dev/null
+		systemctl suspend
         ;;
     $logout)
 		run_cmd --logout

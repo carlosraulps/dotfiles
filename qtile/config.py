@@ -18,14 +18,14 @@ import subprocess
 
 @hook.subscribe.startup_once
 def autostart():
-    subprocess.call([path.join(qtile_path, 'autostart.sh')])
+    subprocess.Popen([path.join(qtile_path, 'autostart.sh')])
 
 main = None
 dgroups_key_binder = None
 dgroups_app_rules: list = []
 follow_mouse_focus = True
 bring_front_click = False
-cursor_warp = True
+cursor_warp = False
 auto_fullscreen = True
 focus_on_window_activation = 'urgent'
 wmname = 'LG3D'

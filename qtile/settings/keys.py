@@ -42,28 +42,42 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     ([mod, "control"], "r", lazy.restart()),
 
     ([mod, "control"], "q", lazy.shutdown()),
-    ([mod], "r", lazy.spawncmd()),
+    ([mod, "shift"], "r", lazy.spawncmd()),
 
     # ------------ App Configs ------------
 
-    # Menu
-    ([mod], "m", lazy.spawn("rofi -show drun")),
+    # Menu (Rofi Spotlight Launcher)
+    ([mod], "space", lazy.spawn("rofi -show drun -theme ~/.config/rofi/themes/spotlight-dark.rasi")),
+    ([mod], "m", lazy.spawn("rofi -show drun -theme ~/.config/rofi/themes/spotlight-dark.rasi")),
 
-    # Window Nav
-    ([mod, "shift"], "m", lazy.spawn("rofi -show")),
+    # Spotlight File Search (Win+F) & Calculator (Win+C)
+    ([mod], "f", lazy.spawn("rofi -show finder -theme ~/.config/rofi/themes/spotlight-dark.rasi")),
+    ([mod], "c", lazy.spawn("bash -c '~/.config/rofi/scripts/spotlight-calc.sh'")),
 
-    # Browser
+    # Window Switcher (Alt+Tab & Super+Shift+M)
+    (["mod1"], "Tab", lazy.spawn("rofi -show window -theme ~/.config/rofi/themes/spotlight-dark.rasi")),
+    ([mod, "shift"], "m", lazy.spawn("rofi -show window -theme ~/.config/rofi/themes/spotlight-dark.rasi")),
+
+    # Power Menu
+    ([mod, "shift"], "p", lazy.spawn("bash -c '~/.config/rofi/powermenu/type-1/powermenu.sh'")),
+
+    # Wi-Fi Menu Applet
+    ([mod, "shift"], "w", lazy.spawn("bash -c '~/.config/rofi/applets/bin/wifi.sh'")),
+
+    # Quicklinks Applet
+    ([mod], "e", lazy.spawn("bash -c '~/.config/rofi/applets/bin/quicklinks.sh'")),
+
+    # Browser (Brave)
     ([mod], "b", lazy.spawn("brave")),
 
-    # File Explorer
-    #([mod], "e", lazy.spawn("ranger /home/crls/.")),
+    # File Explorer (Ranger)
+    ([mod], "r", lazy.spawn("alacritty -e ranger")),
 
-    # Terminal
+    # Terminal (Alacritty)
     ([mod], "Return", lazy.spawn("alacritty")),
 
-    # Redshift
-    #([mod], "r", lazy.spawn("redshift -O 2400")),
-    #([mod, "shift"], "r", lazy.spawn("redshift -x")),
+    # Gridgets Desktop Widgets Toggle / Restart
+    ([mod, "shift"], "g", lazy.spawn("/home/cr/temporary/dotfiles/gridgets-qtile/run.sh --bg")),
 
     # Screenshot
     ([mod], "s", lazy.spawn("flameshot gui")),

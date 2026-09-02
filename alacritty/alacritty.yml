@@ -39,7 +39,7 @@ font:
   normal:
     family: "UbuntuMono Nerd Font"
     style: Regular
-  size: 9
+  size: 12
 
 key_bindings:
   - { key: Y, mods: Alt, action: Copy }

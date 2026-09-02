@@ -1,0 +1,282 @@
+/*******************************************************************************
+ * MACOS SPOTLIGHT PRO DARK THEME FOR ROFI (SQUARED EDITION)
+ * 100% Native X11 Compatibility & Pixel-Perfect Crisp Borders
+ * Author: Carlos / Google DeepMind Agentic Pair
+ *******************************************************************************/
+
+* {
+    font:               "UbuntuMono Nerd Font 12";
+
+    /* macOS Dark Palette */
+    bg-win:             #16171d;
+    bg-surface:         #21232d;
+    bg-alt:             #2a2c39;
+    bg-highlight:       #0860f2;
+    bg-highlight-glow:  #3b82f6;
+
+    fg-main:            #f3f4f6;
+    fg-muted:           #9ca3af;
+    fg-dim:             #6b7280;
+    accent:             #3b82f6;
+    urgent:             #ef4444;
+
+    background-color:   transparent;
+    text-color:         @fg-main;
+
+    margin:             0;
+    padding:            0;
+    spacing:            0;
+}
+
+window {
+    location:           center;
+    anchor:             center;
+    fullscreen:         false;
+    width:              700px;
+    y-offset:           -140px;
+
+    enabled:            true;
+    margin:             0px;
+    padding:            0px;
+    border:             2px solid;
+    border-radius:      0px;
+    border-color:       @accent;
+    background-color:   @bg-win;
+    cursor:             "default";
+}
+
+mainbox {
+    enabled:            true;
+    spacing:            12px;
+    margin:             0px;
+    padding:            16px;
+    border:             0px solid;
+    border-radius:      0px;
+    border-color:       transparent;
+    background-color:   transparent;
+    children:           [ "inputbar", "mode-switcher", "message", "listview" ];
+}
+
+/*****----- Search Bar -----*****/
+inputbar {
+    enabled:            true;
+    spacing:            10px;
+    margin:             0px;
+    padding:            12px 14px;
+    border:             1px solid;
+    border-radius:      0px;
+    border-color:       @bg-alt;
+    background-color:   @bg-surface;
+    text-color:         @fg-main;
+    children:           [ "textbox-prompt-colon", "entry", "num-filtered-rows", "textbox-num-sep", "num-rows" ];
+}
+
+textbox-prompt-colon {
+    enabled:            true;
+    expand:             false;
+    str:                " ";
+    font:               "UbuntuMono Nerd Font 14";
+    background-color:   transparent;
+    text-color:         @accent;
+    vertical-align:     0.5;
+    horizontal-align:   0.5;
+}
+
+entry {
+    enabled:            true;
+    expand:             true;
+    font:               "UbuntuMono Nerd Font 13";
+    background-color:   transparent;
+    text-color:         @fg-main;
+    cursor:             text;
+    placeholder:        "Spotlight Search (Apps, Files, Windows, Math)...";
+    placeholder-color:  @fg-dim;
+    vertical-align:     0.5;
+}
+
+num-filtered-rows {
+    enabled:            true;
+    expand:             false;
+    background-color:   transparent;
+    text-color:         @fg-muted;
+    vertical-align:     0.5;
+}
+
+textbox-num-sep {
+    enabled:            true;
+    expand:             false;
+    str:                "/";
+    background-color:   transparent;
+    text-color:         @fg-dim;
+    vertical-align:     0.5;
+}
+
+num-rows {
+    enabled:            true;
+    expand:             false;
+    background-color:   transparent;
+    text-color:         @fg-muted;
+    vertical-align:     0.5;
+}
+
+/*****----- Mode Tabs (Pills) -----*****/
+mode-switcher {
+    enabled:            true;
+    spacing:            8px;
+    margin:             0px 2px;
+    background-color:   transparent;
+}
+
+button {
+    padding:            6px 14px;
+    border:             1px solid;
+    border-radius:      0px;
+    border-color:       @bg-alt;
+    background-color:   @bg-surface;
+    text-color:         @fg-muted;
+    cursor:             pointer;
+    vertical-align:     0.5;
+    horizontal-align:   0.5;
+}
+
+button selected {
+    background-color:   @bg-highlight;
+    text-color:         #ffffff;
+    border:             1px solid;
+    border-color:       @bg-highlight-glow;
+}
+
+/*****----- Message / Calculator Result -----*****/
+message {
+    enabled:            true;
+    margin:             0px;
+    padding:            10px 14px;
+    border:             1px solid;
+    border-radius:      0px;
+    border-color:       @accent;
+    background-color:   @bg-surface;
+    text-color:         @fg-main;
+}
+
+textbox {
+    background-color:   transparent;
+    text-color:         @fg-main;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
+    highlight:          none;
+}
+
+error-message {
+    padding:            12px;
+    border:             2px solid;
+    border-radius:      0px;
+    border-color:       @urgent;
+    background-color:   @bg-win;
+    text-color:         @fg-main;
+}
+
+/*****----- Results List -----*****/
+listview {
+    enabled:            true;
+    columns:            1;
+    lines:              8;
+    cycle:              true;
+    dynamic:            true;
+    scrollbar:          true;
+    layout:             vertical;
+    reverse:            false;
+    fixed-height:       false;
+    fixed-columns:      true;
+    
+    spacing:            4px;
+    margin:             4px 0px 0px 0px;
+    padding:            6px 0px 0px 0px;
+    border:             1px 0px 0px 0px solid;
+    border-radius:      0px;
+    border-color:       @bg-alt;
+    background-color:   transparent;
+    text-color:         @fg-main;
+    cursor:             "default";
+}
+
+scrollbar {
+    handle-width:       4px;
+    handle-color:       @accent;
+    border-radius:      0px;
+    background-color:   @bg-surface;
+    margin:             0px 0px 0px 8px;
+}
+
+/*****----- Elements -----*****/
+element {
+    enabled:            true;
+    spacing:            12px;
+    margin:             0px;
+    padding:            10px 12px;
+    border:             1px solid;
+    border-radius:      0px;
+    border-color:       transparent;
+    background-color:   transparent;
+    text-color:         @fg-main;
+    orientation:        horizontal;
+    cursor:             pointer;
+}
+
+element normal.normal {
+    background-color:   transparent;
+    text-color:         @fg-main;
+}
+
+element normal.active {
+    background-color:   @bg-surface;
+    text-color:         @accent;
+}
+
+element normal.urgent {
+    background-color:   @bg-surface;
+    text-color:         @urgent;
+}
+
+element alternate.normal {
+    background-color:   transparent;
+    text-color:         @fg-main;
+}
+
+element alternate.active {
+    background-color:   @bg-surface;
+    text-color:         @accent;
+}
+
+element alternate.urgent {
+    background-color:   @bg-surface;
+    text-color:         @urgent;
+}
+
+element selected.normal, element selected.active {
+    background-color:   @bg-highlight;
+    text-color:         #ffffff;
+    border-color:       @bg-highlight-glow;
+}
+
+element selected.urgent {
+    background-color:   @urgent;
+    text-color:         #ffffff;
+}
+
+element-icon {
+    background-color:   transparent;
+    text-color:         inherit;
+    size:               26px;
+    cursor:             inherit;
+    vertical-align:     0.5;
+    horizontal-align:   0.5;
+}
+
+element-text {
+    background-color:   transparent;
+    text-color:         inherit;
+    highlight:          inherit;
+    cursor:             inherit;
+    vertical-align:     0.5;
+    horizontal-align:   0.0;
+}

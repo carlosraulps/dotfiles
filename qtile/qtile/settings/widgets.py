@@ -29,8 +29,8 @@ def powerline(fg="light", bg="dark"):
     return widget.TextBox(
         **base(fg, bg),
         text="", # Icon: nf-oct-triangle_left
-        fontsize=37,
-        padding=-12 #Nice significa que se reducirá el espacio alrededor del widget "TextBox" en 12 pixels.
+        fontsize=34,
+        padding=0
     )
 
 
@@ -130,7 +130,7 @@ primary_widgets = [
 
     powerline('dark', 'dark'),
 
-    widget.CurrentLayoutIcon(**base(bg='dark'), scale=0.65),
+    widget.CurrentLayout(**base(bg='dark'), mode='icon', scale=0.65),
 
     widget.CurrentLayout(**base(bg='dark'), padding=5),
 
@@ -201,7 +201,7 @@ secondary_widgets = [
 
     powerline('color1', 'dark'),
 
-    widget.CurrentLayoutIcon(**base(bg='color1'), scale=0.65),
+    widget.CurrentLayout(**base(bg='color1'), mode='icon', scale=0.65),
 
     widget.CurrentLayout(**base(bg='color1'), padding=5),
 
@@ -213,7 +213,7 @@ secondary_widgets = [
 ]
 
 widget_defaults = {
-    'font': 'Ubuntu Nerd Font Bold',
+    'font': 'UbuntuMono Nerd Font',
     'fontsize': 14,
     'padding': 1,
 }

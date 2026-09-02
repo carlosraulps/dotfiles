@@ -1,9 +1,21 @@
+import os
 from libqtile import widget
+from libqtile.lazy import lazy
 from .theme import colors
-from libqtile.widget import battery, cpu
-import psutil
 
-# Get the icons at https://www.nerdfonts.com/cheat-sheet (you need a Nerd Font)
+# Active network interface detection (Ethernet priority)
+def get_active_net_interface():
+    for iface in ['enp38s0', 'eth0', 'enp0s3', 'wlan0']:
+        if os.path.exists(f'/sys/class/net/{iface}/operstate'):
+            try:
+                with open(f'/sys/class/net/{iface}/operstate') as f:
+                    if f.read().strip() == 'up':
+                        return iface
+            except Exception:
+                pass
+    return 'enp38s0'
+
+ACTIVE_IFACE = get_active_net_interface()
 
 def base(fg='text', bg='dark'): 
     return {
@@ -11,40 +23,54 @@ def base(fg='text', bg='dark'):
         'background': colors[bg]
     }
 
-
 def separator():
-    return widget.Sep(**base(), linewidth=0, padding=5)
+    return widget.Sep(**base(), linewidth=0, padding=4)
 
-
-def icon(fg='text', bg='dark', fontsize=18, text="?"):
-    return widget.TextBox(
-        **base(fg, bg),
-        fontsize=fontsize,
-        text=text,
-        padding=3
+def bar_divider():
+    return widget.Sep(
+        background=colors['dark'],
+        foreground=colors['grey'],
+        linewidth=1,
+        padding=10
     )
 
+def icon(fg='text', bg='dark', fontsize=16, text="?", mouse_callbacks=None):
+    kwargs = base(fg, bg)
+    if mouse_callbacks:
+        kwargs['mouse_callbacks'] = mouse_callbacks
+    return widget.TextBox(
+        **kwargs,
+        fontsize=fontsize,
+        text=text,
+        padding=2
+    )
 
 def powerline(fg="light", bg="dark"):
     return widget.TextBox(
         **base(fg, bg),
-        text="", # Icon: nf-oct-triangle_left
-        fontsize=37,
-        padding=-12 #Nice significa que se reducirá el espacio alrededor del widget "TextBox" en 12 pixels.
+        text="",  # Icon: nf-oct-triangle_left
+        fontsize=34,
+        padding=0
     )
-
 
 def workspaces(): 
     return [
+        icon(
+            fg='focus',
+            bg='dark',
+            fontsize=18,
+            text='  ',
+            mouse_callbacks={'Button1': lazy.spawn("bash -c '~/.config/rofi/powermenu/type-1/powermenu.sh'")}
+        ),  # Arch / Apple System Menu (Reboot, Shutdown, Logout, Lock)
         separator(),
         widget.GroupBox(
             **base(fg='light'),
             font='UbuntuMono Nerd Font',
-            fontsize=19,
+            fontsize=17,
             margin_y=3,
             margin_x=0,
             padding_y=8,
-            padding_x=5,
+            padding_x=6,
             borderwidth=1,
             active=colors['active'],
             inactive=colors['inactive'],
@@ -59,162 +85,128 @@ def workspaces():
             disable_drag=True
         ),
         separator(),
-        widget.WindowName(**base(fg='focus'), fontsize=14, padding=5),
+        widget.WindowName(**base(fg='focus'), fontsize=13, padding=6),
         separator(),
     ]
 
-def battery_widget():
-    return [
-        powerline('color4', 'dark'),
-
-        icon(bg='color4', text=''), # Icon: nf-fa-battery_3
-
-        widget.Battery(
-            **base(bg='color4'),
-            battery='BAT0',
-            format='{percent:2.0%}'
-        ),
-
-        icon(bg='color4', text=''), # Icon: nf-fa-battery_4
-
-        widget.Battery(
-            **base(bg='color4'),
-            battery='BAT1',
-            format='{percent:2.0%}'
-        ),
-
-        powerline('dark', 'color4'),
-    ]
-
-def storage():
-    return [
-        powerline('color2', 'dark'),
-
-        icon(bg='color2', text='󱩵'), # Icon: nf-fa-hdd-o
-
-        widget.DF(
-            **base(bg='color2'),
-            format=' {f}{m}',
-            visible_on_warn=False,
-            partition='/'
-        ),
-
-        powerline('dark', 'color2'),
-    ]
-
-def cpu_ram():
-    return [
-        powerline('color1', 'dark'),
-
-        icon(bg='color1', text=''), # Icon: nf-fa-cogs
-
-        widget.CPU(
-            **base(bg='color1'),
-            format='CPU {freq_current}GHz {load_percent}%'
-        ),
-
-        icon(bg='color1', text=''), # Icon: nf-fa-memory
-
-        widget.Memory(
-            **base(bg='color1'),
-            format='{MemUsed}M/{MemTotal}M'
-        ),
-
-        powerline('dark', 'color1'),
-    ]
-
+# MacBook / macOS Top Bar (Zero Overlap & São Paulo Timezone)
 primary_widgets = [
     *workspaces(),
 
-    separator(),
+    # Layout Indicator
+    widget.CurrentLayout(**base(bg='dark'), mode='icon', scale=0.65),
+    widget.CurrentLayout(**base(bg='dark'), padding=4),
+    bar_divider(),
 
-    powerline('dark', 'dark'),
-
-    widget.CurrentLayoutIcon(**base(bg='dark'), scale=0.65),
-
-    widget.CurrentLayout(**base(bg='dark'), padding=5),
-
-    powerline('dark', 'dark'),
-
-    icon(bg="dark", text='|   '), # Icon: nf-fa-download
-    
+    # Pacman / System Updates
+    icon(bg="dark", fg="color2", fontsize=15, text=' '),
     widget.CheckUpdates(
         background=colors['dark'],
-        colour_have_updates=colors['text'],
+        colour_have_updates=colors['color2'],
         colour_no_updates=colors['text'],
         no_update_string='0',
         display_format='{updates}',
         update_interval=1800,
         custom_command='checkupdates',
+        padding=2,
     ),
+    bar_divider(),
 
-    powerline('dark', 'dark'),
-
-    icon(bg="dark", text='|   '),  # Icon: nf-fa-feed
-    
-    widget.Net(**base(bg='dark'), interface='wlp4s0'),
-
-    #######
-    powerline('dark', 'dark'),
-
-    icon(bg="dark", fontsize=16, text='|  󰁺 '), # Icon: nf-fa-battery-full
-
-    widget.Battery(
-        background=colors['dark'],
-        battery=0,
-        format='{percent:2.0%}'
+    # Ethernet / Wi-Fi Network Indicator & Live Bandwidth (Clickable -> Wi-Fi Menu)
+    icon(
+        bg="dark",
+        fg="focus",
+        fontsize=16,
+        text='󰈀 ',
+        mouse_callbacks={'Button1': lazy.spawn("bash -c '~/.config/rofi/applets/bin/wifi.sh'")}
     ),
-
-    icon(bg="dark", fontsize=16, text='+'), # Icon: nf-fa-battery-full
-    widget.Battery(
-        background=colors['dark'],
-        battery=1,
-        format='{percent:2.0%}',
-        update_interval=10,
+    widget.Net(
+        **base(bg='dark'),
+        interface=ACTIVE_IFACE,
+        format='{down:.1f}M ↓↑ {up:.1f}M',
+        prefix='M',
+        padding=2
     ),
-    #######
-    powerline('dark', 'dark'),
-    
-    icon(bg="dark", fontsize=17, text=' |  󰍛 '), # Icon: nf-mdi-memory
+    bar_divider(),
 
-    widget.Memory(**base(bg='dark'), format='{MemUsed:.0f}M'),
+    # CPU & RAM Monitors
+    icon(bg="dark", fg="color1", fontsize=16, text=' '),
+    widget.CPU(
+        **base(bg='dark'),
+        format='{load_percent:.0f}%',
+        padding=2
+    ),
+    separator(),
+    icon(bg="dark", fg="color3", fontsize=15, text=' '),
+    widget.Memory(
+        **base(bg='dark'),
+        format='{MemUsed:.0f}M',
+        padding=2
+    ),
+    bar_divider(),
 
-    powerline('dark', 'dark'),
+    # Desktop Workstation Power (AC Direct Power)
+    icon(bg="dark", fg="color2", fontsize=16, text='󰚥 '),
+    widget.TextBox(
+        **base(bg='dark'),
+        text='100% AC',
+        padding=2
+    ),
+    bar_divider(),
 
-    icon(bg="color1", fg="dark", fontsize=17, text='  '), # Icon: nf-mdi-calendar_clock
+    # Spotlight Search Icon (Clickable -> Rofi Launcher)
+    icon(
+        bg="dark",
+        fg="text",
+        fontsize=14,
+        text=' ',
+        mouse_callbacks={'Button1': lazy.spawn("rofi -show drun -theme ~/.config/rofi/themes/spotlight-dark.rasi")}
+    ),
+    separator(),
 
+    # Control Center Icon (Clickable -> Quicklinks Applet)
+    icon(
+        bg="dark",
+        fg="text",
+        fontsize=16,
+        text='󰍜 ',
+        mouse_callbacks={'Button1': lazy.spawn("bash -c '~/.config/rofi/applets/bin/quicklinks.sh'")}
+    ),
+    separator(),
+
+    # macOS Date & Time Pill (São Paulo, BR: America/Sao_Paulo)
+    powerline('color1', 'dark'),
+    icon(bg="color1", fg="dark", fontsize=15, text='  '),
     widget.Clock(
-    foreground=colors['dark'],  # Color del texto
-    background=colors['color1'],  # Fondo
-    format='%d/%m/%Y - %H:%M ',
-    padding=5,
-),
-    #powerline('dark', 'color1'),
+        timezone='America/Sao_Paulo',
+        foreground=colors['dark'],
+        background=colors['color1'],
+        format='%a %d %b  %H:%M ',
+        padding=4,
+    ),
 
-    widget.Systray(background=colors['dark'], padding=5),
+    # System Tray
+    widget.Systray(background=colors['dark'], padding=6),
 ]
 
 secondary_widgets = [
     *workspaces(),
-
     separator(),
-
     powerline('color1', 'dark'),
-
-    widget.CurrentLayoutIcon(**base(bg='color1'), scale=0.65),
-
-    widget.CurrentLayout(**base(bg='color1'), padding=5),
-
+    widget.CurrentLayout(**base(bg='color1'), mode='icon', scale=0.65),
+    widget.CurrentLayout(**base(bg='color1'), padding=4),
     powerline('color2', 'color1'),
-
-    widget.Clock(**base(bg='color2'), format='%d/%m/%Y - %H:%M '),
-
+    widget.Clock(
+        timezone='America/Sao_Paulo',
+        **base(bg='color2'),
+        format='%a %d %b  %H:%M '
+    ),
     powerline('dark', 'color2'),
 ]
 
 widget_defaults = {
-    'font': 'Ubuntu Nerd Font Bold',
-    'fontsize': 14,
+    'font': 'UbuntuMono Nerd Font',
+    'fontsize': 13,
     'padding': 1,
 }
 extension_defaults = widget_defaults.copy()

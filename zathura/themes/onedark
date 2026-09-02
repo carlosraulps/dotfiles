@@ -1,0 +1,42 @@
+# ==============================================================================
+#  OneDark Theme for Zathura
+# ==============================================================================
+
+set default-bg                  "#1E2127"
+set default-fg                  "#ABB2BF"
+
+set statusbar-bg                "#282C34"
+set statusbar-fg                "#ABB2BF"
+
+set inputbar-bg                 "#1E2127"
+set inputbar-fg                 "#61AFEF"
+
+set notification-bg             "#282C34"
+set notification-fg             "#98C379"
+set notification-error-bg       "#E06C75"
+set notification-error-fg       "#1E2127"
+set notification-warning-bg     "#E5C07B"
+set notification-warning-fg     "#1E2127"
+
+set highlight-color             "#E5C07B"
+set highlight-active-color      "#61AFEF"
+set highlight-fg                "#1E2127"
+
+set completion-bg               "#282C34"
+set completion-fg               "#ABB2BF"
+set completion-group-bg         "#21252B"
+set completion-group-fg         "#5C6370"
+set completion-highlight-bg     "#61AFEF"
+set completion-highlight-fg     "#1E2127"
+
+set index-bg                    "#1E2127"
+set index-fg                    "#ABB2BF"
+set index-active-bg             "#61AFEF"
+set index-active-fg             "#1E2127"
+
+set render-loading-bg           "#1E2127"
+set render-loading-fg           "#61AFEF"
+
+# Dark Mode / Recolor colors
+set recolor-lightcolor          "#1E2127"
+set recolor-darkcolor           "#ABB2BF"

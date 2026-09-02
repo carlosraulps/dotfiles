@@ -1,0 +1,194 @@
+/* Gridgets Desktop for Qtile - mac-arch (Nord/Noctalia) Stylesheet */
+
+* {
+    font-family: 'Poppins', 'UbuntuMono Nerd Font', 'SF Pro Display', sans-serif;
+    color: #eceff4;
+}
+
+window.gridgets-window {
+    background-color: transparent;
+}
+
+/* Glassmorphism Card Container */
+.gridget-card {
+    background-color: rgba(36, 41, 51, 0.85);
+    border: 1px solid rgba(216, 222, 233, 0.14);
+    border-radius: 16px;
+    padding: 12px;
+    box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.35);
+    transition: all 200ms ease;
+}
+
+.gridget-card:hover {
+    border-color: rgba(136, 192, 208, 0.40);
+    background-color: rgba(46, 52, 64, 0.92);
+}
+
+.widget-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #88c0d0;
+    margin-bottom: 4px;
+}
+
+/* Clock Widget */
+.clock-time {
+    font-size: 38px;
+    font-weight: 700;
+    color: #eceff4;
+}
+
+.clock-date {
+    font-size: 13px;
+    color: #81a1c1;
+}
+
+/* Weather Widget */
+.weather-city {
+    font-size: 14px;
+    font-weight: bold;
+    color: #88c0d0;
+}
+
+.weather-temp {
+    font-size: 32px;
+    font-weight: 300;
+    color: #eceff4;
+}
+
+.weather-condition {
+    font-size: 12px;
+    font-weight: 600;
+    color: #8fbcbb;
+}
+
+.weather-highlow {
+    font-size: 11px;
+    color: #d8dee9;
+}
+
+/* System Widget */
+.stat-subtext {
+    font-size: 11px;
+    color: #d8dee9;
+}
+
+progressbar trough {
+    background-color: rgba(236, 239, 244, 0.08);
+    border-radius: 4px;
+    min-height: 6px;
+    border: none;
+}
+
+progressbar.meter-cpu progress {
+    background-color: #bf616a;
+    border-radius: 4px;
+}
+
+progressbar.meter-ram progress {
+    background-color: #81a1c1;
+    border-radius: 4px;
+}
+
+/* Music Widget */
+.music-title {
+    font-size: 13px;
+    font-weight: bold;
+    color: #eceff4;
+}
+
+.music-artist {
+    font-size: 12px;
+    color: #81a1c1;
+}
+
+.media-btn {
+    background-color: rgba(236, 239, 244, 0.08);
+    border: 1px solid rgba(216, 222, 233, 0.12);
+    border-radius: 20px;
+    padding: 4px 10px;
+    color: #d8dee9;
+    transition: all 150ms ease;
+}
+
+.media-btn:hover {
+    background-color: rgba(136, 192, 208, 0.25);
+    color: #eceff4;
+    border-color: #88c0d0;
+}
+
+.media-btn-primary {
+    background-color: #88c0d0;
+    color: #242933;
+    font-weight: bold;
+    border: none;
+}
+
+.media-btn-primary:hover {
+    background-color: #8fbcbb;
+    color: #242933;
+}
+
+.media-playing {
+    background-color: #61afef;
+    color: #1e222a;
+    box-shadow: 0 0 10px rgba(97, 175, 239, 0.45);
+}
+
+.music-wave {
+    font-family: 'UbuntuMono Nerd Font', monospace;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+/* Notes Widget */
+.notes-textview {
+    background-color: transparent;
+    color: #d8dee9;
+    font-size: 12px;
+}
+
+/* Pomodoro Widget */
+.pomodoro-timer {
+    font-size: 32px;
+    font-weight: bold;
+    color: #ebcb8b;
+}
+
+.pomodoro-btn {
+    background-color: rgba(236, 239, 244, 0.08);
+    border: 1px solid rgba(216, 222, 233, 0.12);
+    border-radius: 12px;
+    padding: 3px 12px;
+    font-size: 11px;
+    color: #eceff4;
+}
+
+.pomodoro-btn:hover {
+    background-color: rgba(235, 203, 139, 0.25);
+    border-color: #ebcb8b;
+}
+
+/* Quotes Widget */
+.quote-text {
+    font-size: 12px;
+    color: #ebcb8b;
+}
+
+.quote-author {
+    font-size: 11px;
+    color: #81a1c1;
+}
+
+/* Command Widget */
+.command-btn {
+    background-color: rgba(236, 239, 244, 0.06);
+    border: 1px solid rgba(216, 222, 233, 0.12);
+    border-radius: 14px;
+    padding: 10px;
+}
+
+.command-btn:hover {
+    background-color: rgba(136, 192, 208, 0.2);
+    border-color: #88c0d0;
+}

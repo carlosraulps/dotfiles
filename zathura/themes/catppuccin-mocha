@@ -1,0 +1,42 @@
+# ==============================================================================
+#  Catppuccin Mocha Theme for Zathura
+# ==============================================================================
+
+set default-bg                  "#1e1e2e"
+set default-fg                  "#cdd6f4"
+
+set statusbar-bg                "#181825"
+set statusbar-fg                "#cdd6f4"
+
+set inputbar-bg                 "#11111b"
+set inputbar-fg                 "#89b4fa"
+
+set notification-bg             "#181825"
+set notification-fg             "#a6e3a1"
+set notification-error-bg       "#f38ba8"
+set notification-error-fg       "#11111b"
+set notification-warning-bg     "#f9e2af"
+set notification-warning-fg     "#11111b"
+
+set highlight-color             "#f9e2af"
+set highlight-active-color      "#89b4fa"
+set highlight-fg                "#11111b"
+
+set completion-bg               "#181825"
+set completion-fg               "#cdd6f4"
+set completion-group-bg         "#11111b"
+set completion-group-fg         "#6c7086"
+set completion-highlight-bg     "#89b4fa"
+set completion-highlight-fg     "#11111b"
+
+set index-bg                    "#1e1e2e"
+set index-fg                    "#cdd6f4"
+set index-active-bg             "#89b4fa"
+set index-active-fg             "#11111b"
+
+set render-loading-bg           "#1e1e2e"
+set render-loading-fg           "#89b4fa"
+
+# Dark Mode / Recolor colors
+set recolor-lightcolor          "#1e1e2e"
+set recolor-darkcolor           "#cdd6f4"

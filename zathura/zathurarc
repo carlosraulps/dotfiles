@@ -1,27 +1,89 @@
+# ==============================================================================
+#  ZATHURA CONFIGURATION - Minimalist, Fast & Modern PDF Document Viewer
+# ==============================================================================
 
-# Configuración de Zathura mu-pdf
+# ------------------------------------------------------------------------------
+#  General & Window Behavior
+# ------------------------------------------------------------------------------
+set font                        "UbuntuMono Nerd Font 11"
+set selection-clipboard         clipboard
+set window-title-page           true
+set window-title-basename       true
+set statusbar-home-tilde        true
+set statusbar-page-percent      true
+set render-loading              true
+set database                    "plain"
 
-# Habilitar el recoloreado de texto
-set recolor false
-set recolor-darkcolor "#000000"
-set recolor-lightcolor  "#FFFFFF"
+# ------------------------------------------------------------------------------
+#  Layout & Scrolling
+# ------------------------------------------------------------------------------
+set adjust-open                 "width"
+set pages-per-row               1
+set page-padding                4
+set scroll-step                 40
+set scroll-page-aware           true
+set scroll-full-overlap         0.01
+set smooth-scroll               true
 
+# Minimal UI (hide vertical scrollbar, show statusbar)
+set guioptions                  "s"
 
-# Configurar la selección para el portapapeles
-set selection-clipboard clipboard
+# ------------------------------------------------------------------------------
+#  Zoom Settings
+# ------------------------------------------------------------------------------
+set zoom-step                   10
+set zoom-min                    10
+set zoom-max                    1000
 
-# Personalizar el color del resaltado
-set highlight-color "#BDBDBD"
+# ------------------------------------------------------------------------------
+#  Color Inversion / Dark Mode (Recolor)
+# ------------------------------------------------------------------------------
+# Default to true for Dark Mode on launch (toggle anytime with 'r' or 'i')
+set recolor                     true
+set recolor-keephue             true
+set recolor-reverse-video       true
 
-# Mostrar el número de página en el título de la ventana
-set window-title-page true
+# ------------------------------------------------------------------------------
+#  Keybindings
+# ------------------------------------------------------------------------------
+# Toggle dark / light mode
+map r                           recolor
+map <C-r>                       recolor
+map i                           recolor
 
-# Definir el paso de zoom (en porcentaje)
-set zoom-step 10
+# Zooming
+map +                           zoom in
+map -                           zoom out
+map =                           zoom in
+map 0                           zoom 100
+map a                           adjust_window best-fit
+map s                           adjust_window width
+map f                           toggle_fullscreen
 
-# Definir el nivel máximo de zoom permitido (en porcentaje)
-set zoom-max 1000
+# Smooth Navigation
+map j                           scroll down
+map k                           scroll up
+map h                           scroll left
+map l                           scroll right
+map J                           navigate next
+map K                           navigate previous
+map <C-d>                       scroll half-down
+map <C-u>                       scroll half-up
+map d                           scroll half-down
+map u                           scroll half-up
 
-# Definir el nivel mínimo de zoom permitido (en porcentaje)
-set zoom-min 10
+# Document Operations
+map R                           rotate
+map b                           toggle_statusbar
+map q                           quit
 
+# Fullscreen specific adjustments
+map [fullscreen] a              adjust_window best-fit
+map [fullscreen] s              adjust_window width
+map [fullscreen] f              toggle_fullscreen
+
+# ------------------------------------------------------------------------------
+#  Color Theme (OneDark by default - matches Qtile & Alacritty)
+#  Alternative options in themes/: catppuccin-mocha, dracula, nord, tokyonight
+# ------------------------------------------------------------------------------
+include themes/onedark

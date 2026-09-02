@@ -1,0 +1,30 @@
+# TTYPER Configuration (~/.config/ttyper/config.toml)
+# Validated for ttyper 1.6.0 (OneDark Theme, English 200, Rounded Borders)
+
+default_language = "english200"
+words = 40
+
+[theme]
+border_type = "rounded"
+
+title = "61afef"
+input_border = "5c6370"
+prompt_border = "61afef"
+
+prompt_correct = "98c379"
+prompt_incorrect = "e06c75"
+prompt_untyped = "5c6370"
+
+prompt_current_correct = "98c379"
+prompt_current_incorrect = "e06c75"
+prompt_current_untyped = "abb2bf"
+
+prompt_cursor = "61afef"
+
+results_overview_border = "61afef"
+results_worst_keys = "e06c75"
+results_worst_keys_border = "e06c75"
+results_chart = "61afef"
+results_chart_x = "5c6370"
+results_chart_y = "5c6370"
+results_restart_prompt = "e5c07b"

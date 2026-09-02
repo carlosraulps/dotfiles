@@ -1,0 +1,58 @@
+{
+  "global": {
+    "columns": 28,
+    "rows": 16,
+    "gap": 8,
+    "margin": 16,
+    "top_offset": 28,
+    "show_grid_lines": false,
+    "background_color": "rgba(36, 41, 51, 0.85)",
+    "foreground_color": "#eceff4",
+    "border_color": "rgba(216, 222, 233, 0.14)",
+    "border_radius": 16,
+    "border_width": 1,
+    "font_family": "Poppins, UbuntuMono Nerd Font, sans-serif",
+    "time_24h": true,
+    "timezone": "America/Sao_Paulo",
+    "weather_city": "São Paulo",
+    "weather_use_fahrenheit": false
+  },
+  "widgets": [
+    {
+      "id": "clock_1",
+      "type": "clock",
+      "col": 21,
+      "row": 0,
+      "width": 7,
+      "height": 3,
+      "use_24h": true,
+      "timezone": "America/Sao_Paulo"
+    },
+    {
+      "id": "weather_1",
+      "type": "weather",
+      "col": 21,
+      "row": 3,
+      "width": 7,
+      "height": 4,
+      "city": "São Paulo",
+      "use_fahrenheit": false
+    },
+    {
+      "id": "sys_1",
+      "type": "system",
+      "col": 21,
+      "row": 7,
+      "width": 7,
+      "height": 4
+    },
+    {
+      "id": "music_1",
+      "type": "music",
+      "col": 21,
+      "row": 11,
+      "width": 7,
+      "height": 3
+    }
+  ]
+}

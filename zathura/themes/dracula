@@ -1,0 +1,42 @@
+# ==============================================================================
+#  Dracula Theme for Zathura
+# ==============================================================================
+
+set default-bg                  "#282a36"
+set default-fg                  "#f8f8f2"
+
+set statusbar-bg                "#21222c"
+set statusbar-fg                "#f8f8f2"
+
+set inputbar-bg                 "#191a21"
+set inputbar-fg                 "#bd93f9"
+
+set notification-bg             "#21222c"
+set notification-fg             "#50fa7b"
+set notification-error-bg       "#ff5555"
+set notification-error-fg       "#191a21"
+set notification-warning-bg     "#f1fa8c"
+set notification-warning-fg     "#191a21"
+
+set highlight-color             "#f1fa8c"
+set highlight-active-color      "#bd93f9"
+set highlight-fg                "#191a21"
+
+set completion-bg               "#21222c"
+set completion-fg               "#f8f8f2"
+set completion-group-bg         "#191a21"
+set completion-group-fg         "#6272a4"
+set completion-highlight-bg     "#bd93f9"
+set completion-highlight-fg     "#191a21"
+
+set index-bg                    "#282a36"
+set index-fg                    "#f8f8f2"
+set index-active-bg             "#bd93f9"
+set index-active-fg             "#191a21"
+
+set render-loading-bg           "#282a36"
+set render-loading-fg           "#bd93f9"
+
+# Dark Mode / Recolor colors
+set recolor-lightcolor          "#282a36"
+set recolor-darkcolor           "#f8f8f2"

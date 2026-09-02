@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+# Centered Floating TTYPER launcher for Qtile & Alacritty
+exec alacritty --class ttyper,ttyper \
+    -o window.dimensions.columns=90 \
+    -o window.dimensions.lines=24 \
+    -o window.padding.x=24 \
+    -o window.padding.y=20 \
+    -e ttyper "$@"

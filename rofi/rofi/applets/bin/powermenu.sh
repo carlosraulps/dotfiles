@@ -24,23 +24,23 @@ fi
 # Options
 layout=`cat ${theme} | grep 'USE_ICON' | cut -d'=' -f2`
 if [[ "$layout" == 'NO' ]]; then
-	option_1=" Lock"
-	option_2=" Logout"
-	option_3=" Suspend"
-	option_4=" Hibernate"
-	option_5=" Reboot"
-	option_6=" Shutdown"
-	yes=' Yes'
-	no=' No'
+	option_1=" Lock"
+	option_2=" Logout"
+	option_3=" Suspend"
+	option_4="󰒲 Hibernate"
+	option_5=" Reboot"
+	option_6=" Shutdown"
+	yes=' Yes'
+	no=' No'
 else
-	option_1=""
-	option_2=""
-	option_3=""
-	option_4=""
-	option_5=""
-	option_6=""
-	yes=''
-	no=''
+	option_1=""
+	option_2=""
+	option_3=""
+	option_4="󰒲"
+	option_5=""
+	option_6=""
+	yes=''
+	no=''
 fi
 
 # Rofi CMD
@@ -90,11 +90,24 @@ confirm_run () {
 # Execute Command
 run_cmd() {
 	if [[ "$1" == '--opt1' ]]; then
-		betterlockscreen -l
+		if command -v betterlockscreen >/dev/null 2>&1; then
+			betterlockscreen -l
+		elif command -v i3lock >/dev/null 2>&1; then
+			i3lock
+		elif command -v slock >/dev/null 2>&1; then
+			slock
+		elif command -v swaylock >/dev/null 2>&1; then
+			swaylock
+		else
+			notify-send -u critical -a "Power Menu" "Screen Locker Not Installed" "Install i3lock: sudo pacman -S i3lock" 2>/dev/null
+			loginctl lock-session 2>/dev/null
+		fi
 	elif [[ "$1" == '--opt2' ]]; then
-		confirm_run 'kill -9 -1'
+		confirm_run 'qtile cmd-obj -o cmd -f shutdown'
 	elif [[ "$1" == '--opt3' ]]; then
-		confirm_run 'mpc -q pause' 'amixer set Master mute' 'systemctl suspend'
+		mpc -q pause 2>/dev/null
+		amixer set Master mute 2>/dev/null
+		systemctl suspend
 	elif [[ "$1" == '--opt4' ]]; then
 		confirm_run 'systemctl hibernate'
 	elif [[ "$1" == '--opt5' ]]; then
