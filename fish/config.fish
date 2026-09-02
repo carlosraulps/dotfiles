@@ -3,11 +3,8 @@ if status is-interactive
     fish_vi_key_bindings
     abbr -a pac sudo pacman -S
 
-    # Automatically start or connect to protected base tmux session
-    # Using 'new-session -t base' prevents terminal mirroring when opening multiple windows
-    if not set -q TMUX
-        tmux new-session -t base 2>/dev/null; or tmux new-session -s base
-    end
+    # Quick alias to jump into protected persistent tmux session
+    alias tm "tmux attach-session -t base 2>/dev/null; or tmux new-session -s base"
 end
 
 fish_add_path $HOME/.local/bin

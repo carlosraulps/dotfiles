@@ -73,8 +73,11 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # File Explorer (Ranger)
     ([mod], "r", lazy.spawn("alacritty -e ranger")),
 
-    # Terminal (Alacritty)
+    # Terminal (Alacritty - independent clean instance)
     ([mod], "Return", lazy.spawn("alacritty")),
+
+    # Persistent Tmux Workstation Session (with Spotatui & session recovery)
+    ([mod, "shift"], "Return", lazy.spawn("alacritty -e tmux new-session -A -s base")),
 
     # Gridgets Desktop Widgets Toggle / Restart
     ([mod, "shift"], "g", lazy.spawn("/home/cr/temporary/dotfiles/gridgets-qtile/run.sh --bg")),
