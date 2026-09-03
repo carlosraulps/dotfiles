@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-#  tmux-smart-attach — Unified Active Workspace Pool (Always Fresh on Win+Enter)
+#  tmux-smart-attach — Unified Active Workspace Pool (Auto-Rename Enabled)
 # ==============================================================================
 
 # If already inside tmux, just launch user shell
@@ -10,13 +10,17 @@ fi
 
 # Ensure master base session exists
 if ! tmux has-session -t base 2>/dev/null; then
-    # Cold start: Create master base session with window 1
-    WIN_ID=$(tmux new-session -d -s base -n "fish" -P -F "#{window_id}")
+    # Cold start: Create master base session (omit -n so automatic-rename is enabled)
+    WIN_ID=$(tmux new-session -d -s base -P -F "#{window_id}")
 else
     # Base session exists: ALWAYS create a brand new, independent window for Win+Enter
-    # This guarantees that pressing Win+Enter never duplicates or hijacks an existing terminal!
-    WIN_ID=$(tmux new-window -d -P -F "#{window_id}" -t base -n "fish")
+    # Omit -n so automatic-rename is active and tracks spotatui, btop, ranger, agy, etc.
+    WIN_ID=$(tmux new-window -d -P -F "#{window_id}" -t base)
 fi
+
+# Explicitly ensure automatic-rename is ON for this window
+tmux set-option -w -t "$WIN_ID" automatic-rename on
+tmux set-option -w -t "$WIN_ID" allow-rename off
 
 # Unique grouped session name so this terminal can display its assigned window
 SESS_NAME="term-$$-$(date +%s%N | cut -b1-8)"
