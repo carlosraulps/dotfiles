@@ -1,36 +1,21 @@
 #!/bin/bash
 # ==============================================================================
-#  tmux-smart-attach — Non-Mirroring Multi-Terminal Protected Tmux Launcher
+#  tmux-smart-attach — Isolated, Self-Cleaning, Subterminal-Capable Terminal
 # ==============================================================================
 
-# If already inside tmux, run shell directly
+# If already inside tmux, just launch user shell
 if [ -n "$TMUX" ]; then
     exec /usr/bin/fish
 fi
 
-# Ensure base session exists
-if ! tmux has-session -t base 2>/dev/null; then
-    # Cold start: Create protected base session
-    exec tmux new-session -s base
-fi
+# Unique session name for this terminal window
+SESSION_NAME="term-$$-$(date +%s%N | cut -b1-8)"
 
-# Count active clients attached to tmux
-ATTACHED_COUNT=$(tmux list-clients 2>/dev/null | wc -l)
-
-if [ "$ATTACHED_COUNT" -eq 0 ]; then
-    # First terminal connecting: attach directly to base
-    exec tmux attach-session -t base
-else
-    # Another terminal is already open!
-    # Create a fresh window so this terminal NEVER mirrors the existing one
-    WIN_ID=$(tmux new-window -d -P -F "#{window_id}" -t base)
-
-    # Unique temporary grouped session name
-    SESSION_NAME="term-$$-$(date +%s%N | cut -b1-12)"
-
-    # Connect via grouped session to the new window, destroying temp session on exit
-    exec tmux new-session -s "$SESSION_NAME" -t base -d \; \
-        set-option -t "$SESSION_NAME" destroy-unattached on \; \
-        select-window -t "$SESSION_NAME:$WIN_ID" \; \
-        attach-session -t "$SESSION_NAME"
-fi
+# Launch an isolated tmux session for this terminal window:
+# 1. 'destroy-unattached on' guarantees that the moment this Alacritty window
+#    is closed (Win+W, Ctrl+D, or typing exit), tmux immediately terminates
+#    the session and its panes. Zero zombie/ghost windows will linger in the bar!
+# 2. The top bar only displays panes and tabs active in THIS window.
+# 3. Subterminal splits (Ctrl+b | and Ctrl+b -) remain fully functional.
+exec tmux new-session -s "$SESSION_NAME" -n "term" \; \
+    set-option -t "$SESSION_NAME" destroy-unattached on
