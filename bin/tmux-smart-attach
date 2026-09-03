@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-#  tmux-smart-attach — Isolated, Self-Cleaning, Subterminal-Capable Terminal
+#  tmux-smart-attach — Unified Active Workspace Pool (Always Fresh on Win+Enter)
 # ==============================================================================
 
 # If already inside tmux, just launch user shell
@@ -8,14 +8,34 @@ if [ -n "$TMUX" ]; then
     exec /usr/bin/fish
 fi
 
-# Unique session name for this terminal window
-SESSION_NAME="term-$$-$(date +%s%N | cut -b1-8)"
+# Ensure master base session exists
+if ! tmux has-session -t base 2>/dev/null; then
+    # Cold start: Create master base session with window 1
+    WIN_ID=$(tmux new-session -d -s base -n "fish" -P -F "#{window_id}")
+else
+    # Base session exists: ALWAYS create a brand new, independent window for Win+Enter
+    # This guarantees that pressing Win+Enter never duplicates or hijacks an existing terminal!
+    WIN_ID=$(tmux new-window -d -P -F "#{window_id}" -t base -n "fish")
+fi
 
-# Launch an isolated tmux session for this terminal window:
-# 1. 'destroy-unattached on' guarantees that the moment this Alacritty window
-#    is closed (Win+W, Ctrl+D, or typing exit), tmux immediately terminates
-#    the session and its panes. Zero zombie/ghost windows will linger in the bar!
-# 2. The top bar only displays panes and tabs active in THIS window.
-# 3. Subterminal splits (Ctrl+b | and Ctrl+b -) remain fully functional.
-exec tmux new-session -s "$SESSION_NAME" -n "term" \; \
-    set-option -t "$SESSION_NAME" destroy-unattached on
+# Unique grouped session name so this terminal can display its assigned window
+SESS_NAME="term-$$-$(date +%s%N | cut -b1-8)"
+tmux new-session -d -s "$SESS_NAME" -t base
+tmux select-window -t "$SESS_NAME:$WIN_ID"
+
+# When this terminal closes (Win+W, Ctrl+D, or typing exit):
+# 1. Kill this specific window in base so it is immediately removed from the top bar!
+# 2. Terminate the temporary grouped session
+cleanup() {
+    TOTAL_WINS=$(tmux list-windows -t base 2>/dev/null | wc -l)
+    if [ "$TOTAL_WINS" -gt 1 ]; then
+        tmux kill-window -t "$WIN_ID" 2>/dev/null
+    fi
+    tmux kill-session -t "$SESS_NAME" 2>/dev/null
+}
+trap cleanup EXIT SIGHUP SIGINT SIGTERM
+
+# Attach in foreground so the trap triggers on window close
+tmux attach-session -t "$SESS_NAME"
+
+cleanup
