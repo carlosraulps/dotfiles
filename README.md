@@ -67,6 +67,18 @@ An aesthetic, keyboard-driven, high-performance desktop environment built on **A
 | `Ctrl + b d` | Detach session (keeps tasks running in background) |
 | `Mouse Click` | Focus split pane or click tabs in the top bar |
 
+### 🌐 HPC Cluster File Transfer Suite (Fish Shell)
+| Command | Host | Description |
+| :--- | :--- | :--- |
+| `snhuk` / `snh <files...> [dest]` | **Huk** | Upload files to Huk headnode (auto-routed via Bastião jump host) |
+| `gnhuk` / `gnh <remotes...> [dest]` | **Huk** | Download files from Huk headnode (defaults to local `.`) |
+| `sncarbono` / `snc <files...> [dest]` | **Carbono** | Upload files to Carbono cluster (UFABC) |
+| `gncarbono` / `gnc <remotes...> [dest]` | **Carbono** | Download files from Carbono cluster (defaults to local `.`) |
+| `sntitanio` / `snt <files...> [dest]` | **Titanio** | Upload files to Titanio cluster (UFABC) |
+| `gntitanio` / `gnt <remotes...> [dest]` | **Titanio** | Download files from Titanio cluster (defaults to local `.`) |
+| `snbastiao` / `snb` & `gnbastiao` / `gnb` | **Bastião** | Transfer files with Bastião gateway (UNMSM) |
+| `sshuk` / `sshc` / `ssht` / `sshb` | All Hosts | Instant SSH shortcuts to respective clusters |
+
 ---
 
 ## 🖥️ Workstation Workspace Layout
