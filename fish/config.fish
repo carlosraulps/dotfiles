@@ -166,3 +166,17 @@ alias gnb gnbastiao
 alias sshb "ssh bastiao"
 complete -c snbastiao -F
 complete -c snb -F
+
+# --- Google Drive Instant Cache Refresh ---
+function gdr -d "Refrescar caché de Google Drive inmediatamente"
+    if test (count $argv) -gt 0
+        rclone rc vfs/refresh dir="$argv[1]" >/dev/null 2>&1
+    else
+        rclone rc vfs/refresh >/dev/null 2>&1
+    end
+    set_color green
+    echo "✓ Caché de Google Drive sincronizado!"
+    set_color normal
+end
+alias gd-refresh gdr
+

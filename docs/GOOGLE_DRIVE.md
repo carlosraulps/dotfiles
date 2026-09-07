@@ -41,10 +41,12 @@ ExecStart=/usr/bin/rclone mount cr: %h/mnt/google-drive \
     --vfs-cache-max-size 40G \
     --vfs-read-ahead 128M \
     --vfs-write-back 5s \
-    --dir-cache-time 72h \
-    --poll-interval 15s \
+    --dir-cache-time 30m \
+    --poll-interval 10s \
     --buffer-size 64M \
-    --drive-chunk-size 64M
+    --drive-chunk-size 64M \
+    --rc \
+    --rc-no-auth
 ExecStop=/usr/bin/fusermount3 -uz %h/mnt/google-drive
 Restart=on-failure
 RestartSec=5
@@ -61,12 +63,36 @@ WantedBy=default.target
 | :--- | :--- | :--- |
 | `--vfs-cache-mode` | `full` | Enables two-way caching on your local SSD. Files open instantly and can be edited out-of-order. |
 | `--vfs-write-back` | `5s` | **Zero-lag saving.** Saving a file in Neovim or VSCode commits directly to NVMe in < 1ms. Rclone uploads the file 5 seconds later in the background. |
-| `--dir-cache-time` | `72h` | Directory trees and metadata are stored in RAM for 72 hours. Running `ls` or opening folders in Ranger executes in **0.007s (7ms)**. |
-| `--poll-interval` | `15s` | Uses Google's Changes Stream. If you upload a file from your phone or web browser, it appears locally within 15 seconds without flushing your directory cache. |
+| `--dir-cache-time` | `30m` | Directory trees and metadata are stored in RAM for 30 minutes, guaranteeing 0ms browsing while auto-refreshing stale folders. |
+| `--poll-interval` | `10s` | Queries Google's Changes API every 10 seconds so remote uploads appear automatically. |
+| `--rc / --rc-no-auth` | Enabled | Exposes rclone's Remote Control engine for instant, 0-second cache refreshes via `gdr`. |
 | `--vfs-cache-max-age` | `72h` | Retains accessed files locally for 3 days so you don't repeatedly re-download project files. |
 | `--vfs-cache-max-size` | `40G` | Caps the local cache size to 40 GB on your `/home` partition. |
-| `--drive-chunk-size` | `64M` | Increases upload batch sizes from 8MB to 64MB, accelerating uploads of PDFs, videos, and datasets by up to 4x. |
+| `--drive-chunk-size` | `64M` | Increases upload batch sizes from 8MB to 64MB, accelerating uploads by up to 4x. |
 | `--buffer-size` | `64M` | Read buffer in RAM per open file. |
+
+---
+
+## 🔄 How Remote Uploads Work: Mount vs Sync
+
+It is important to understand how `rclone mount` behaves when you upload files from another computer or phone:
+
+1. **Virtual On-Demand Filesystem**:
+   `rclone mount` is **not an offline sync tool** (like Dropbox or Google Drive for Desktop) that pre-downloads gigabytes of files to your hard drive in advance. Instead, it exposes your cloud files virtually:
+   * File **names, directories, and metadata** appear in folder listings (`ls`, file picker, Ranger).
+   * File **contents (bytes)** are downloaded **on demand** the moment an application opens or reads the file.
+   * Once opened, files are cached on your local NVMe SSD (`~/.cache/rclone/`) for 72 hours.
+2. **Propagation Time (Question of Time)**:
+   When you upload a file on another device:
+   * Google's backend servers take **30 to 90 seconds** to index the file and publish it to the Google Drive Changes Stream.
+   * Rclone polls this stream every **10 seconds** (`--poll-interval 10s`).
+   * Therefore, newly uploaded files naturally appear within **1 to 2 minutes**.
+3. **Instant Manual Refresh (`gdr`)**:
+   If you just uploaded a file on another computer and need it to appear immediately without waiting:
+   ```bash
+   gdr              # Instantly refreshes Google Drive directory cache
+   gdr Proyectos    # Instantly refreshes a specific folder
+   ```
 
 ---
 
@@ -92,6 +118,7 @@ To make the token permanent:
 
 ## 🛠️ Management Commands
 
+* **Instant directory cache refresh**: `gdr` or `gd-refresh`
 * **Check service status**: `systemctl --user status rclone-gdrive.service`
 * **Restart service**: `systemctl --user restart rclone-gdrive.service`
 * **Stop service**: `systemctl --user stop rclone-gdrive.service`
