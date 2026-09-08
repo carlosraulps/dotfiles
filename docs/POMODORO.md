@@ -7,6 +7,10 @@ A high-productivity focus timer built directly into **Qtile** and **Rofi Spotlig
 ## 🎯 Features
 
 * **Interactive Rofi Spotlight Popup**: Accessible via **`Win + P`** or **Left-Click** on the top bar indicator.
+* **Auto-Completion Pop-up Modal**: The moment a session or break expires, an interactive Spotlight modal appears automatically in the center of the screen, offering instant 1-click transitions (e.g. `Enter` to start recommended 15m break).
+* **OneDark Dunst Notifications**: Tailored Dunst theme matching Qtile and Rofi geometry with high-contrast banners and application icon support.
+* **Flashing Top Bar Completion Alert**: If you look away, the top bar widget flashes an alternating high-visibility completion banner (`🎉 00:00 DONE! TAKE A BREAK`) until acknowledged or clicked.
+* **Audible Alarm Chimes**: Plays crisp system alarm sounds (`alarm-clock-elapsed.oga` / `complete.oga`) via `paplay` when sessions end.
 * **One-Click Presets**:
   * 🧠 **45 min — Deep Study & Research**: Long-focus block for intensive programming and literature reading.
   * ☕ **15 min — Rest & Coffee Break**: Restorative break paired with deep study blocks.
@@ -21,9 +25,9 @@ A high-productivity focus timer built directly into **Qtile** and **Rofi Spotlig
   * **Study Session**: `<span foreground="#98c379">󰄉 󱎫 MM:SS</span>` (OneDark Green)
   * **Break Period**: `<span foreground="#e5c07b">󰄉 󰏤 MM:SS</span>` (Warm Amber)
   * **Paused**: `<span foreground="#e06c75">󰄉 󰏥 MM:SS</span>` (Coral Red)
+  * **Session Finished**: `<span background="#e5c07b" foreground="#1e222a"><b> 🎉 00:00 DONE! TAKE A BREAK </b></span>` (Flashing Alert)
   * **Idle**: `<span foreground="#5c6370">󰄉 25m</span>` (Dim Slate)
 * **Drift-Proof Architecture**: Uses absolute UNIX epoch timestamps (`time.time()`). System freezes, sleep mode, or terminal lag will **never** desync the countdown.
-* **Audio Alerts & Desktop Notifications**: Plays a native audio alert via `canberra-gtk-play` and sends desktop notifications (`notify-send`) when focus blocks or breaks complete.
 
 ---
 
