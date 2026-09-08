@@ -41,12 +41,13 @@ ExecStart=/usr/bin/rclone mount cr: %h/mnt/google-drive \
     --vfs-cache-max-size 40G \
     --vfs-read-ahead 128M \
     --vfs-write-back 5s \
-    --dir-cache-time 30m \
+    --dir-cache-time 72h \
     --poll-interval 10s \
     --buffer-size 64M \
     --drive-chunk-size 64M \
     --rc \
     --rc-no-auth
+ExecStartPost=/usr/bin/sh -c "sleep 2 && /usr/bin/rclone rc vfs/refresh recursive=true _async=true || true"
 ExecStop=/usr/bin/fusermount3 -uz %h/mnt/google-drive
 Restart=on-failure
 RestartSec=5
@@ -63,7 +64,7 @@ WantedBy=default.target
 | :--- | :--- | :--- |
 | `--vfs-cache-mode` | `full` | Enables two-way caching on your local SSD. Files open instantly and can be edited out-of-order. |
 | `--vfs-write-back` | `5s` | **Zero-lag saving.** Saving a file in Neovim or VSCode commits directly to NVMe in < 1ms. Rclone uploads the file 5 seconds later in the background. |
-| `--dir-cache-time` | `30m` | Directory trees and metadata are stored in RAM for 30 minutes, guaranteeing 0ms browsing while auto-refreshing stale folders. |
+| `--dir-cache-time` | `72h` | Directory trees and metadata are stored in RAM for 72 hours, guaranteeing 0ms browsing while avoiding repetitive API fetches. |
 | `--poll-interval` | `10s` | Queries Google's Changes API every 10 seconds so remote uploads appear automatically. |
 | `--rc / --rc-no-auth` | Enabled | Exposes rclone's Remote Control engine for instant, 0-second cache refreshes via `gdr`. |
 | `--vfs-cache-max-age` | `72h` | Retains accessed files locally for 3 days so you don't repeatedly re-download project files. |

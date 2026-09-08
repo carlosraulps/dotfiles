@@ -12,12 +12,13 @@ ExecStart=/usr/bin/rclone mount cr: %h/mnt/google-drive \
     --vfs-cache-max-size 40G \
     --vfs-read-ahead 128M \
     --vfs-write-back 5s \
-    --dir-cache-time 30m \
+    --dir-cache-time 72h \
     --poll-interval 10s \
     --buffer-size 64M \
     --drive-chunk-size 64M \
     --rc \
     --rc-no-auth
+ExecStartPost=/usr/bin/sh -c "sleep 2 && /usr/bin/rclone rc vfs/refresh recursive=true _async=true || true"
 ExecStop=/usr/bin/fusermount3 -uz %h/mnt/google-drive
 Restart=on-failure
 RestartSec=5

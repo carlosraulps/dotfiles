@@ -170,12 +170,12 @@ complete -c snb -F
 # --- Google Drive Instant Cache Refresh ---
 function gdr -d "Refrescar caché de Google Drive inmediatamente"
     if test (count $argv) -gt 0
-        rclone rc vfs/refresh dir="$argv[1]" >/dev/null 2>&1
+        rclone rc vfs/refresh dir="$argv[1]" recursive=true _async=true >/dev/null 2>&1
     else
-        rclone rc vfs/refresh >/dev/null 2>&1
+        rclone rc vfs/refresh recursive=true _async=true >/dev/null 2>&1
     end
     set_color green
-    echo "✓ Caché de Google Drive sincronizado!"
+    echo "✓ Caché de Google Drive sincronizado en segundo plano!"
     set_color normal
 end
 alias gd-refresh gdr
