@@ -70,14 +70,25 @@ keys = [Key(key[0], key[1], *key[2:]) for key in [
     # Quicklinks Applet
     ([mod], "e", lazy.spawn("bash -c '~/.config/rofi/applets/bin/quicklinks.sh'")),
 
+    # Apple-Style Look Up Dictionary (Win+D or Ctrl+Alt+D)
+    ([mod], "d", lazy.spawn("/home/cr/.local/bin/apple-lookup")),
+    (["mod1", "control"], "d", lazy.spawn("/home/cr/.local/bin/apple-lookup")),
+
     # Browser (Brave)
     ([mod], "b", lazy.spawn("brave")),
 
     # File Explorer (Ranger)
     ([mod], "r", lazy.spawn("alacritty -e ranger")),
 
-    # Terminal (Alacritty with Smart Tmux - Protected, Autosaved, Non-Mirroring)
-    ([mod], "Return", lazy.spawn("alacritty -e /home/cr/.local/bin/tmux-smart-attach")),
+    # Terminal (Alacritty with Smart Tmux - Workspace-Aware & Protected)
+    ([mod], "Return", lazy.spawn("/home/cr/.config/qtile/scripts/spawn_term.sh")),
+
+    # Instant Undo: Restore Last Closed Terminal (Accidental Close Guard)
+    ([mod], "u", lazy.spawn("/home/cr/.config/qtile/scripts/undo_close_term.sh")),
+
+    # Terminal Archive & History Menu (Rofi Search across 7-day preserved sessions)
+    ([mod, "shift"], "u", lazy.spawn("/home/cr/.config/qtile/scripts/term_archive_menu.py")),
+    ([mod, "shift"], "t", lazy.spawn("/home/cr/.config/qtile/scripts/term_archive_menu.py")),
 
     # Fallback Pure Terminal (without Tmux)
     ([mod, "shift"], "Return", lazy.spawn("alacritty")),

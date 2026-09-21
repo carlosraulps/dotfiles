@@ -8,6 +8,7 @@ SCRIPTS_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'scr
 if SCRIPTS_DIR not in sys.path:
     sys.path.insert(0, SCRIPTS_DIR)
 import pomodoro
+import slurm_widget
 
 # Active network interface detection (Ethernet priority)
 def get_active_net_interface():
@@ -57,6 +58,24 @@ def powerline(fg="light", bg="dark"):
         text="",  # Icon: nf-oct-triangle_left
         fontsize=34,
         padding=0
+    )
+
+def media_player_widget():
+    """
+    Spotify, YouTube & Browser MPRIS2 Media Player Widget.
+    Preserved in background per configuration (uncomment in primary_widgets to display).
+    """
+    return widget.Mpris2(
+        name="media_player",
+        objname=None,
+        display_metadata=["xesam:title", "xesam:artist"],
+        scroll_chars=None,
+        stop_pause_text="⏸ Paused",
+        format="󰎈 {xesam:artist} - {xesam:title}",
+        paused_text="󰏤 {xesam:title}",
+        playing_text="󰐊 {xesam:title}",
+        **base(bg="dark", fg="color2"),
+        padding=4,
     )
 
 def workspaces(): 
@@ -135,7 +154,7 @@ primary_widgets = [
     ),
     bar_divider(),
 
-    # CPU & RAM Monitors
+    # CPU & RAM & Storage Monitors
     icon(bg="dark", fg="color1", fontsize=16, text=' '),
     widget.CPU(
         **base(bg='dark'),
@@ -148,6 +167,24 @@ primary_widgets = [
         **base(bg='dark'),
         format='{MemUsed:.0f}M',
         padding=2
+    ),
+    separator(),
+    icon(
+        bg="dark",
+        fg="color4",
+        fontsize=15,
+        text='󰋊 ',
+        mouse_callbacks={'Button1': lazy.spawn("alacritty -e df -h")}
+    ),
+    widget.DF(
+        **base(bg='dark'),
+        partition='/home',
+        visible_on_warn=False,
+        format='{uf:.0f}G',
+        measure='G',
+        update_interval=30,
+        padding=2,
+        mouse_callbacks={'Button1': lazy.spawn("alacritty -e df -h")}
     ),
     bar_divider(),
 
@@ -185,6 +222,34 @@ primary_widgets = [
         }
     ),
     bar_divider(),
+
+    # Slurm Workstation Running Jobs Monitor (Watches local active running jobs; Click -> Terminal Watch)
+    icon(
+        bg="dark",
+        fg="color2",
+        fontsize=15,
+        text='󰒋 ',
+        mouse_callbacks={
+            'Button1': lazy.spawn("alacritty -e /home/cr/.config/qtile/scripts/slurm_multicluster_viewer.py"),
+            'Button3': lazy.spawn("alacritty -e squeue"),
+        }
+    ),
+    widget.GenPollText(
+        background=colors['dark'],
+        update_interval=2,
+        func=slurm_widget.get_running_jobs_text,
+        markup=True,
+        padding=3,
+        mouse_callbacks={
+            'Button1': lazy.spawn("alacritty -e /home/cr/.config/qtile/scripts/slurm_multicluster_viewer.py"),
+            'Button3': lazy.spawn("alacritty -e squeue"),
+        }
+    ),
+    bar_divider(),
+
+    # Media Player Widget (Spotify / YouTube / MPRIS2) - [Preserved in code in background, inactive]
+    # media_player_widget(),
+    # bar_divider(),
 
     # Spotlight Search Icon (Clickable -> Rofi Launcher)
     icon(
