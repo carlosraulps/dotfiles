@@ -12,6 +12,7 @@ from widgets.notes import NotesWidget
 from widgets.pomodoro import PomodoroWidget
 from widgets.quotes import QuotesWidget
 from widgets.command import CommandWidget
+from widgets.slurm import SlurmWidget
 
 WIDGET_REGISTRY = {
     'clock': ClockWidget,
@@ -24,6 +25,8 @@ WIDGET_REGISTRY = {
     'pomodoro': PomodoroWidget,
     'quotes': QuotesWidget,
     'command': CommandWidget,
+    'slurm': SlurmWidget,
+    'squeue': SlurmWidget,
 }
 
 class DesktopGridCanvas(Gtk.Fixed):

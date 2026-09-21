@@ -56,7 +56,7 @@ class GridgetsDesktopWindow(Gtk.Window):
             Gtk.StyleContext.add_provider_for_screen(
                 screen,
                 css_provider,
-                Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+                Gtk.STYLE_PROVIDER_PRIORITY_USER
             )
 
     def update_geometry(self):

@@ -5,6 +5,8 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 cd "$DIR"
 
 export NO_AT_BRIDGE=1
+export DISPLAY="${DISPLAY:-:0}"
+export XAUTHORITY="${XAUTHORITY:-$HOME/.Xauthority}"
 
 # Use system python with PyGObject (GTK3) support
 PYTHON_BIN="/usr/bin/python3"
@@ -18,15 +20,15 @@ LOGFILE="/tmp/gridgets-qtile.log"
 # Kill existing instance if running
 if [ -f "$PIDFILE" ]; then
     PID=$(cat "$PIDFILE")
-    if kill -0 "$PID" 2>/dev/null; then
-        kill "$PID" 2>/dev/null
-    fi
+    kill -9 "$PID" 2>/dev/null
     rm -f "$PIDFILE"
 fi
+pkill -f "$DIR/main.py" 2>/dev/null
+sleep 0.3
 
 # Run daemon in background or foreground
 if [ "$1" = "--bg" ] || [ "$1" = "-b" ]; then
-    nohup "$PYTHON_BIN" "$DIR/main.py" > "$LOGFILE" 2>&1 &
+    nohup "$PYTHON_BIN" "$DIR/main.py" < /dev/null > "$LOGFILE" 2>&1 &
     PID=$!
     echo $PID > "$PIDFILE"
     disown $PID

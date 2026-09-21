@@ -9,6 +9,14 @@ window.gridgets-window {
     background-color: transparent;
 }
 
+button {
+    background-image: none;
+    background-color: transparent;
+    box-shadow: none;
+    text-shadow: none;
+    border: none;
+}
+
 /* Glassmorphism Card Container */
 .gridget-card {
     background-color: rgba(36, 41, 51, 0.85);
@@ -44,6 +52,47 @@ window.gridgets-window {
 }
 
 /* Weather Widget */
+.weather-loc-card {
+    background-color: rgba(46, 52, 64, 0.55);
+    border: 1px solid rgba(216, 222, 233, 0.09);
+    border-radius: 12px;
+    padding: 6px 10px;
+    transition: all 150ms ease;
+}
+
+.weather-loc-card:hover {
+    background-color: rgba(59, 66, 82, 0.75);
+    border-color: rgba(136, 192, 208, 0.30);
+}
+
+.weather-loc-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #eceff4;
+}
+
+.weather-loc-time {
+    font-size: 11px;
+    color: #81a1c1;
+}
+
+.weather-loc-temp {
+    font-size: 22px;
+    font-weight: 300;
+    color: #eceff4;
+}
+
+.weather-loc-cond {
+    font-size: 11px;
+    font-weight: 600;
+    color: #8fbcbb;
+}
+
+.weather-loc-hl {
+    font-size: 10px;
+    color: #d8dee9;
+}
+
 .weather-city {
     font-size: 14px;
     font-weight: bold;
@@ -191,4 +240,101 @@ progressbar.meter-ram progress {
 .command-btn:hover {
     background-color: rgba(136, 192, 208, 0.2);
     border-color: #88c0d0;
+}
+
+/* Slurm HPC Running Jobs Widget */
+.gridget-slurm {
+    padding: 12px;
+}
+
+.slurm-badge {
+    background-color: rgba(163, 190, 140, 0.22);
+    border: 1px solid rgba(163, 190, 140, 0.45);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #a3be8c;
+}
+
+.slurm-badge-idle {
+    background-color: rgba(216, 222, 233, 0.08);
+    border: 1px solid rgba(216, 222, 233, 0.14);
+    border-radius: 12px;
+    padding: 2px 8px;
+    font-size: 11px;
+    color: #81a1c1;
+}
+
+.slurm-cluster-hdr {
+    font-size: 11px;
+    font-weight: 700;
+    margin-top: 3px;
+    margin-bottom: 2px;
+}
+
+.slurm-job-box {
+    background-color: rgba(46, 52, 64, 0.70);
+    border: 1px solid rgba(216, 222, 233, 0.12);
+    border-radius: 10px;
+    padding: 6px 10px;
+    margin-bottom: 4px;
+    transition: all 150ms ease;
+}
+
+.slurm-job-box:hover {
+    background-color: rgba(59, 66, 82, 0.85);
+    border-color: rgba(136, 192, 208, 0.35);
+}
+
+.slurm-job-title {
+    font-size: 12px;
+    font-weight: bold;
+    color: #eceff4;
+}
+
+.slurm-job-sub {
+    font-size: 11px;
+    color: #81a1c1;
+}
+
+button.slurm-btn,
+.slurm-btn {
+    background-image: none;
+    background-color: #2e3440;
+    border: 1px solid rgba(136, 192, 208, 0.55);
+    border-radius: 10px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: bold;
+    color: #88c0d0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+    text-shadow: none;
+    transition: all 150ms ease;
+}
+
+button.slurm-btn label,
+.slurm-btn label {
+    color: #88c0d0;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+button.slurm-btn:hover,
+.slurm-btn:hover {
+    background-image: none;
+    background-color: #3b4252;
+    border-color: #88c0d0;
+}
+
+button.slurm-btn:hover label,
+.slurm-btn:hover label {
+    color: #ffffff;
+}
+
+button.slurm-btn:active,
+.slurm-btn:active {
+    background-image: none;
+    background-color: #434c5e;
+    border-color: #81a1c1;
 }

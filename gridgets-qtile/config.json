@@ -47,12 +47,12 @@
       "height": 4
     },
     {
-      "id": "music_1",
-      "type": "music",
+      "id": "slurm_1",
+      "type": "slurm",
       "col": 21,
       "row": 11,
       "width": 7,
-      "height": 3
+      "height": 4
     }
   ]
 }
