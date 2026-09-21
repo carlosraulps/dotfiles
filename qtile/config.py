@@ -21,6 +21,39 @@ def autostart():
     # Runs once on boot and once on any live restart
     subprocess.Popen([path.join(qtile_path, 'autostart.sh')])
 
+import threading
+
+_save_timer = None
+
+def debounced_save():
+    global _save_timer
+    _save_timer = None
+    term_mgr = path.join(qtile_path, 'scripts', 'term_manager.py')
+    if path.exists(term_mgr):
+        subprocess.Popen(['python3', term_mgr, 'save'])
+
+def schedule_save(delay=1.5):
+    global _save_timer
+    if _save_timer is not None:
+        _save_timer.cancel()
+    _save_timer = threading.Timer(delay, debounced_save)
+    _save_timer.daemon = True
+    _save_timer.start()
+
+@hook.subscribe.client_managed
+def on_client_managed(client):
+    schedule_save(1.5)
+
+@hook.subscribe.client_killed
+def on_client_killed(client):
+    schedule_save(0.5)
+
+@hook.subscribe.shutdown
+def on_shutdown():
+    term_mgr = path.join(qtile_path, 'scripts', 'term_manager.py')
+    if path.exists(term_mgr):
+        subprocess.run(['python3', term_mgr, 'save'], timeout=2)
+
 main = None
 dgroups_key_binder = None
 dgroups_app_rules: list = []

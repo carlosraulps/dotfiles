@@ -15,7 +15,13 @@ layout_conf = {
 
 groups = [
     # Workspace 1 (General / Web)
-    Group(" 󰖟  ", layout="monadtall"),
+    Group(
+        " 󰖟  ",
+        layout="monadtall",
+        matches=[
+            Match(wm_class="qtile-term-ws1"),
+        ]
+    ),
 
     # Workspace 2 (Win+2: Brave on Left + 2 Terminals on Right in MonadTall)
     Group(
@@ -26,6 +32,7 @@ groups = [
             Match(wm_class="Brave-browser"),
             Match(wm_class="brave-browser"),
             Match(wm_class="qtile-devterm"),
+            Match(wm_class="qtile-term-ws2"),
         ]
     ),
 
@@ -45,10 +52,22 @@ groups = [
     ),
 
     # Workspace 4 (Work / Notes)
-    Group("   ", layout="monadtall"),
+    Group(
+        "   ",
+        layout="monadtall",
+        matches=[
+            Match(wm_class="qtile-term-ws4"),
+        ]
+    ),
 
-    # Workspace 5 (Media / Discord / Zoom)
-    Group("   ", layout="monadtall"),
+    # Workspace 5 (Media / Discord / Zoom / System Monitor)
+    Group(
+        "   ",
+        layout="monadtall",
+        matches=[
+            Match(wm_class="qtile-term-ws5"),
+        ]
+    ),
 ]
 
 for i, group in enumerate(groups):

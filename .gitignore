@@ -12,3 +12,5 @@ mac-arch/
 # Runtime and cache files
 *.log
 *.pid
+qtile/last_closed_window.txt
+qtile/saved_terminals.json

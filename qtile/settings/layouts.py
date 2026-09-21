@@ -38,6 +38,9 @@ floating_layout = layout.Floating(
         Match(wm_class='gridgets'),
         Match(wm_class='Gridgets'),
         Match(wm_class='ttyper'),
+        Match(wm_class='AppleLookup'),
+        Match(wm_class='SelectionPill'),
+        Match(title='Apple Look Up'),
     ],
     border_focus=colors["color4"][0]
 )

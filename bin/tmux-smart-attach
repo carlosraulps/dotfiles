@@ -1,6 +1,6 @@
 #!/bin/bash
 # ==============================================================================
-#  tmux-smart-attach — Unified Active Workspace Pool (Auto-Rename Enabled)
+#  tmux-smart-attach — Active Viewport Manager & Auto-Stashing Lifecycle
 # ==============================================================================
 
 # If already inside tmux, just launch user shell
@@ -8,38 +8,96 @@ if [ -n "$TMUX" ]; then
     exec /usr/bin/fish
 fi
 
-# Ensure master base session exists
+# 1. Housekeeping: Prune any orphan/unattached zombie sessions from past crashes
+for s in $(tmux list-sessions -F "#{session_name} #{session_attached}" 2>/dev/null | awk '$1 ~ /^term-/ && $2 == 0 {print $1}'); do
+    tmux kill-session -t "$s" 2>/dev/null
+done
+
+# 2. Ensure master base and archive sessions exist
 if ! tmux has-session -t base 2>/dev/null; then
-    # Cold start: Create master base session (omit -n so automatic-rename is enabled)
-    WIN_ID=$(tmux new-session -d -s base -P -F "#{window_id}")
-else
-    # Base session exists: ALWAYS create a brand new, independent window for Win+Enter
-    # Omit -n so automatic-rename is active and tracks spotatui, btop, ranger, agy, etc.
+    tmux new-session -d -s base
+fi
+if ! tmux has-session -t archive 2>/dev/null; then
+    tmux new-session -d -s archive
+fi
+
+# 3. Determine target window
+TARGET="$1"
+WIN_ID=""
+
+if [ -n "$TARGET" ]; then
+    # A. Check if target window exists in archive; if so, restore it back to base
+    if tmux list-windows -t archive -F "#{window_id}" 2>/dev/null | grep -qx "$TARGET"; then
+        tmux move-window -s "archive:$TARGET" -t "base:" 2>/dev/null
+        WIN_ID="$TARGET"
+    elif tmux list-windows -t archive -F "#{window_index}" 2>/dev/null | grep -qx "$TARGET"; then
+        tmux move-window -s "archive:$TARGET" -t "base:" 2>/dev/null
+        WIN_ID="$TARGET"
+    # B. Check if target window exists in base
+    elif tmux list-windows -t base -F "#{window_index}" 2>/dev/null | grep -qx "$TARGET"; then
+        WIN_ID="$TARGET"
+    elif tmux list-windows -t base -F "#{window_name}" 2>/dev/null | grep -qx "$TARGET"; then
+        WIN_ID="$TARGET"
+    elif tmux list-windows -t base -F "#{window_id}" 2>/dev/null | grep -qx "$TARGET"; then
+        WIN_ID="$TARGET"
+    else
+        # Target window does not exist; create it
+        if [[ "$TARGET" =~ ^[0-9]+$ ]]; then
+            WIN_ID=$(tmux new-window -d -t "base:$TARGET" -P -F "#{window_id}" 2>/dev/null)
+        else
+            WIN_ID=$(tmux new-window -d -t base -n "$TARGET" -P -F "#{window_id}" 2>/dev/null)
+        fi
+    fi
+fi
+
+# If no target specified or target creation returned empty (e.g. ad-hoc Win+Enter):
+if [ -z "$WIN_ID" ]; then
     WIN_ID=$(tmux new-window -d -P -F "#{window_id}" -t base)
 fi
 
-# Explicitly ensure automatic-rename is ON for this window
-tmux set-option -w -t "$WIN_ID" automatic-rename on
-tmux set-option -w -t "$WIN_ID" allow-rename off
-
-# Unique grouped session name so this terminal can display its assigned window
+# 4. Create an isolated grouped session so this terminal has independent window selection & sizing
 SESS_NAME="term-$$-$(date +%s%N | cut -b1-8)"
 tmux new-session -d -s "$SESS_NAME" -t base
 tmux select-window -t "$SESS_NAME:$WIN_ID"
 
-# When this terminal closes (Win+W, Ctrl+D, or typing exit):
-# 1. Kill this specific window in base so it is immediately removed from the top bar!
-# 2. Terminate the temporary grouped session
+# Get the exact canonical window ID (@X)
+ACTUAL_WIN_ID=$(tmux display-message -p -t "$SESS_NAME" "#{window_id}" 2>/dev/null)
+
+# Ensure window rename behavior is active
+tmux set-option -w -t "$ACTUAL_WIN_ID" automatic-rename on 2>/dev/null
+tmux set-option -w -t "$ACTUAL_WIN_ID" allow-rename off 2>/dev/null
+
+# 5. Clean up & Auto-Stash on Terminal Close
 cleanup() {
-    TOTAL_WINS=$(tmux list-windows -t base 2>/dev/null | wc -l)
-    if [ "$TOTAL_WINS" -gt 1 ]; then
-        tmux kill-window -t "$WIN_ID" 2>/dev/null
-    fi
+    # Terminate the temporary grouped session viewer
     tmux kill-session -t "$SESS_NAME" 2>/dev/null
+
+    # Check if ANY other active terminal is currently viewing this window ID
+    VIEWER_COUNT=0
+    for s in $(tmux list-sessions -F "#{session_name}" 2>/dev/null | grep "^term-"); do
+        curr_win=$(tmux display-message -p -t "$s" "#{window_id}" 2>/dev/null)
+        if [ "$curr_win" = "$ACTUAL_WIN_ID" ]; then
+            VIEWER_COUNT=$((VIEWER_COUNT + 1))
+        fi
+    done
+
+    # If NO OTHER terminal is viewing this window:
+    if [ "$VIEWER_COUNT" -eq 0 ] && tmux has-session -t "base" 2>/dev/null; then
+        # Record as last closed window for Instant Undo (Win+U)
+        mkdir -p "$HOME/.config/qtile"
+        echo "$ACTUAL_WIN_ID" > "$HOME/.config/qtile/last_closed_window.txt"
+
+        # Check total windows remaining in base
+        BASE_WINS=$(tmux list-windows -t base 2>/dev/null | wc -l)
+        if [ "$BASE_WINS" -gt 1 ]; then
+            # Move unviewed window into archive so it immediately disappears from base's top bar!
+            # All running processes, shell buffers, and history are 100% preserved in archive.
+            tmux move-window -d -s "base:$ACTUAL_WIN_ID" -t "archive:" 2>/dev/null
+        fi
+    fi
 }
 trap cleanup EXIT SIGHUP SIGINT SIGTERM
 
-# Attach in foreground so the trap triggers on window close
+# Attach in foreground
 tmux attach-session -t "$SESS_NAME"
-
 cleanup

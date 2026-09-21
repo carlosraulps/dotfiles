@@ -31,6 +31,9 @@ pgrep -x dunst >/dev/null || dunst &
 # Screenshot daemon
 pgrep -x flameshot >/dev/null || flameshot &
 
+# Apple Look Up Selection Daemon ('📖 Look Up' floating pill)
+pgrep -f "apple-lookup --daemon" >/dev/null || /home/cr/.local/bin/apple-lookup --daemon &
+
 # Wallpaper (Caricature Coastal View)
 if command -v feh >/dev/null 2>&1; then
     WALLPAPER="/home/cr/Downloads/Caricature Coastal View.png"
@@ -55,14 +58,17 @@ if ! pgrep -f "/opt/antigravity/antigravity" >/dev/null 2>&1; then
     /usr/local/bin/antigravity &
 fi
 
-# Workspace 2 (Win+2): Launch Brave on Left + 2 Terminals on Right in MonadTall
+# Workspace 2 (Win+2): Launch Brave
 if ! pgrep -x "brave" >/dev/null 2>&1; then
     brave &
 fi
 
-DEVTERMS=$(pgrep -fc "qtile-devterm" 2>/dev/null || echo 0)
-if [ "$DEVTERMS" -lt 2 ]; then
-    alacritty --class qtile-devterm,qtile-devterm -e /home/cr/.local/bin/tmux-smart-attach &
-    sleep 0.3
-    alacritty --class qtile-devterm,qtile-devterm -e /home/cr/.local/bin/tmux-smart-attach &
-fi
+# ==============================================================================
+#  Alacritty + Tmux Resilient Workspace Restoration
+# ==============================================================================
+# Automatically restore Alacritty viewports to their designated Qtile workspaces
+# (Guaranteed singleton protection, no duplicate terminals, zero syntax errors)
+python3 /home/cr/.config/qtile/scripts/term_manager.py restore &
+
+# Prune dead/idle archived terminals older than 7 days
+python3 /home/cr/.config/qtile/scripts/reap_archive.py &
